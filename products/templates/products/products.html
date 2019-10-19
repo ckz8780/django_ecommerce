@@ -3,4 +3,9 @@
 {% block content %}
     <h1>Products</h1>
     {{ products }}
+    {% if messages %}
+	    {% for message in messages %}
+		    <p>{{ message }}</p>
+	    {% endfor %}
+    {% endif %}
 {% endblock %}

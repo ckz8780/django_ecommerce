@@ -253,3 +253,32 @@ A small e-commerce app using Django 2
 		git commit -m "cart app setup"
 		git push
 
+---
+
+### Search App Setup:
+
+- Create `search` app:
+		
+		cd <venv_name>
+		python manage.py startapp search
+- Add `search` app to `INSTALLED_APPS`
+- Create `search` templates directory:
+
+		cd <venv_name>/search
+		mkdir templates/ && mkdir templates/search/
+- Create `search` views (see file in this repo)
+- Create `search` urls (see file in this repo):
+		
+		touch <venv_name>/search/urls.py
+- Include `search` urls in `<project_name>/urls.py`:
+
+		urlpatterns = [
+			# ...
+			path('search', include('search.urls')),
+			# ...
+		]
+- Commit:
+
+		git add .
+		git commit -m "search app setup"
+		git push
