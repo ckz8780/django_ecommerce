@@ -1,11 +1,27 @@
 {% extends 'base.html' %}
 
+{% block page_header %}
+<div class="container">
+	<div class="row">
+		<div class="col">
+		    <h1>Products</h1>
+	    </div>
+	</div>
+</div>
+{% endblock %}
+
 {% block content %}
-    <h1>Products</h1>
-    {{ products }}
-    {% if messages %}
-	    {% for message in messages %}
-		    <p>{{ message }}</p>
-	    {% endfor %}
-    {% endif %}
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<p>Product page content</p>
+		    {{ products }}
+		    {% if messages %}
+			    {% for message in messages %}
+				    <p>{{ message }}</p>
+			    {% endfor %}
+		    {% endif %}
+		</div>
+	</div>
+</div>
 {% endblock %}
