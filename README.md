@@ -20,11 +20,11 @@ A small e-commerce app using Django 2
 		pip install django
 - Create a new Django project
 		
+		cd <venv_name>
 		django-admin startproject <project_name> .
-		cd <project_name>
 - Create `.gitignore`:
 
-		touch <project_name>/.gitignore
+		touch <venv_name>/.gitignore
 - Populate `.gitignore` w/ content:
 
 		*.sqlite3
@@ -65,7 +65,7 @@ A small e-commerce app using Django 2
 
 ### Initial Authentication Setup with [django-allauth](https://django-allauth.readthedocs.io/en/latest):
 
-- Install allauth:
+- Install `django-allauth`:
 
 		pip install django-allauth
 - Update settings per [docs here](https://django-allauth.readthedocs.io/en/latest/installation.html) We're not using any social providers at this point. **Make sure to add `SITE_ID = 1`**
@@ -138,7 +138,7 @@ A small e-commerce app using Django 2
 		cd <venv_name>
 		python manage.py startapp home
 - Add `home` app to `INSTALLED_APPS`
-- Add templates directory in settings.py:
+- Add root templates directory in settings.py:
 
 		TEMPLATES = [
 			{
@@ -152,6 +152,7 @@ A small e-commerce app using Django 2
 
 		cd <venv_name>/home
 		mkdir templates/ && mkdir templates/home/
+- Create `home` views (see file in this repo)
 - Create `home` URLs file (see file in this repo):
 		
 		touch <venv_name>/home/urls.py
@@ -174,4 +175,47 @@ A small e-commerce app using Django 2
 		git commit -m "home app setup"
 		git push
 
+---
+
+### Products App Setup:
+
+- Create `products` app:
+		
+		cd <venv_name>
+		python manage.py startapp products
+- Add `products` app to `INSTALLED_APPS`
+- Create `products` templates directory:
+
+		cd <venv_name>/products
+		mkdir templates/ && mkdir templates/products/
+- Create `products` models (see file in this repo)
+- Create `products` tests (see file in this repo)
+- Create `products` views (see file in this repo)
+- Create `products` URLs file (see file in this repo):
+		
+		touch <venv_name>/products/urls.py
+- Create products template (see file in this repo):
+	
+		touch <venv_name>/products/templates/products/products.html
+- Include `products` urls in `<project_name>/urls.py`:
+
+		urlpatterns = [
+			# ...
+			path('products', include('products.urls')),
+			# ...
+		]
+- Install `Pillow` for image uploads and freeze requirements:
+
+		cd <venv_name>
+		pip install pillow
+		pip freeze > requirements.txt
+- Make migrations and migrate `products` app:
+
+		python manage.py makemigrations products
+		python manage.py migrate products
+- Commit:
+
+		git add .
+		git commit -m "products app setup"
+		git push
 
