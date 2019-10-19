@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # Project Apps
     'home',
     'products',
+    'cart',
 ]
 
 MIDDLEWARE = [
@@ -75,6 +76,9 @@ TEMPLATES = [
 
                 # Required by django-allauth
                 'django.template.context_processors.request',
+
+                # Cart context processor
+                'cart.contexts.cart_contents',
             ],
         },
     },

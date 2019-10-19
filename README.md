@@ -153,7 +153,7 @@ A small e-commerce app using Django 2
 		cd <venv_name>/home
 		mkdir templates/ && mkdir templates/home/
 - Create `home` views (see file in this repo)
-- Create `home` URLs file (see file in this repo):
+- Create `home` urls (see file in this repo):
 		
 		touch <venv_name>/home/urls.py
 - Create index template (see file in this repo):
@@ -191,7 +191,7 @@ A small e-commerce app using Django 2
 - Create `products` models (see file in this repo)
 - Create `products` tests (see file in this repo)
 - Create `products` views (see file in this repo)
-- Create `products` URLs file (see file in this repo):
+- Create `products` urls (see file in this repo):
 		
 		touch <venv_name>/products/urls.py
 - Create products template (see file in this repo):
@@ -217,5 +217,39 @@ A small e-commerce app using Django 2
 
 		git add .
 		git commit -m "products app setup"
+		git push
+
+---
+
+### Cart App Setup:
+
+- Create `cart` app:
+		
+		cd <venv_name>
+		python manage.py startapp cart
+- Add `cart` app to `INSTALLED_APPS`
+- Create `cart` templates directory:
+
+		cd <venv_name>/cart
+		mkdir templates/ && mkdir templates/cart/
+- Create `cart` contexts (see file in this repo)
+- Create `cart` views (see file in this repo)
+- Create `cart` urls (see file in this repo):
+		
+		touch <venv_name>/cart/urls.py
+- Create cart template (see file in this repo):
+	
+		touch <venv_name>/cart/templates/cart/cart.html
+- Include `cart` urls in `<project_name>/urls.py`:
+
+		urlpatterns = [
+			# ...
+			path('cart', include('cart.urls')),
+			# ...
+		]
+- Commit:
+
+		git add .
+		git commit -m "cart app setup"
 		git push
 
