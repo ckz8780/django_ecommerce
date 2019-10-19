@@ -4,13 +4,17 @@ A small e-commerce app using Django 2
 
 # Step by Step
 
-### Initial Setup:
-
 *Note: Some steps may be slightly different depending on your OS/virtualenv choice. This assumes Ubuntu Linux and [virtualenvwrapper's mkproject](https://virtualenvwrapper.readthedocs.io/en/latest/command_ref.html#project-directory-management)*
+
+**IMPORTANT: Throughout this document, `<venv_name>` refers to your root virtualenv directory (i.e. where `manage.py` lives), while `<project_name>` refers to the directory created by the initial `django-admin startproject` command (i.e. where `settings.py` lives). Be sure to create all your apps in the correct directories!**
+
+---
+
+### Initial Setup:
 
 - Create a virtualenv/environment to work in
 
-		mkproject -p python3 <project_folder>
+		mkproject -p python3 <venv_name>
 - Install Django:
 		
 		pip install django
@@ -31,7 +35,7 @@ A small e-commerce app using Django 2
 		touch README.md
 - Test run: 
 
-		cd <project_folder>
+		cd <venv_name>
 		python manage.py runserver
 
 		# Visit http://127.0.0.1:8000, verify project is running
@@ -57,7 +61,7 @@ A small e-commerce app using Django 2
 		git remote add origin git@github.com:<username>/<repo_name>.git
 		git push -u origin master
 
-----------
+---
 
 ### Initial Authentication Setup with [django-allauth](https://django-allauth.readthedocs.io/en/latest):
 
@@ -114,14 +118,60 @@ A small e-commerce app using Django 2
 - Logout of the admin again, navigate back to http://127.0.0.1:8000/accounts/login/ and login with the superuser again. Now you will get a 404 as allauth attempts to redirect you to `/` which currently has no URL
 - Create allauth templates directory:
 
-		mkdir ./<project_name>/templates
-		mkdir ./<project_name>/templates/allauth
+		mkdir <venv_name>/templates
+		mkdir <venv_name>/templates/allauth
 - Freeze requirements:
 
-		pip freeze > <project_folder>/requirements.txt
+		pip freeze > <venv_name>/requirements.txt
 - Commit:
 
 		git add .
 		git commit -m "initial allauth setup"
 		git push
+
+---
+
+### Home App Setup:
+
+- Create `home` app:
 		
+		cd <venv_name>
+		python manage.py startapp home
+- Add `home` app to `INSTALLED_APPS`
+- Add templates directory in settings.py:
+
+		TEMPLATES = [
+			{
+				'BACKEND': 'django.template.backends.django.DjangoTemplates',
+				'DIRS': [os.path.join(BASE_DIR, 'templates')],
+				'APP_DIRS': True,
+				...
+			}
+		]
+- Create `home` templates directory:
+
+		cd <venv_name>/home
+		mkdir templates/ && mkdir templates/home/
+- Create `home` URLs file (see file in this repo):
+		
+		touch <venv_name>/home/urls.py
+- Create index template (see file in this repo):
+	
+		touch <venv_name>/home/templates/home/index.html
+- Create base template (see file in this repo):
+
+		touch <venv_name>/templates/base.html
+- Include `home` urls in `<project_name>/urls.py`:
+
+		urlpatterns = [
+			# ...
+			path('', include('home.urls')),
+			# ...
+		]
+- Commit:
+
+		git add .
+		git commit -m "home app setup"
+		git push
+
+
