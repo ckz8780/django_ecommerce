@@ -1,0 +1,17 @@
+.megamenu {
+  position: static;
+}
+
+.megamenu .dropdown-menu {
+  background: none;
+  border: none;
+  width: 100%;
+}
+
+.megamenu-background {
+  background-image: linear-gradient(to top,#cfd9df 0,#e2ebf0 100%);
+}
+
+.text-uppercase {
+  letter-spacing: 0.08em;
+}
