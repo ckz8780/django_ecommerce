@@ -10,3 +10,13 @@ body {
 .highlight {
 	font-weight: 700;
 }
+
+.overlay {
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	position: fixed;
+	background-image: linear-gradient(to top, rgba(207, 217, 223, .75) 0, rgba(226, 235, 240, .75) 100%);
+	z-index: -1;
+}
