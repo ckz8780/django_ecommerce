@@ -19,7 +19,7 @@ def add_to_cart(request, item_id):
         cart[item_id] = cart.get(item_id, quantity)
     
     request.session['cart'] = cart
-    return redirect(reverse('home'))
+    return redirect(reverse('products'))
     
     
 def adjust_cart(request, item_id):

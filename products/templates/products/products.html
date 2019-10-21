@@ -36,7 +36,26 @@
 						<small class="card-text text-muted">{{ product.description|truncatechars:100 }}</small>
 					</div>
 					<div class="card-footer text-center">
-						<button class="btn btn-sm btn-success">Add to Cart!</button>					
+						<div class="row">
+							<div class="col">
+								<p class="lead text-center font-weight-bold">${{ product.price }}</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">						
+								<form class="form-inline" action="{% url 'add_to_cart' product.id %}" method="POST">
+									{% csrf_token %}
+									<div class="form-row">
+										<div class="col">
+											<input class="form-control" type="number" name="quantity" placeholder="0" min="0" max="99" id='id_qty'>
+										</div>
+										<div class="col">
+											<input type="submit" class="form-control btn btn-sm btn-success" value="Add to Cart!">
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>						
 					</div>
 				</div>
 			</div>

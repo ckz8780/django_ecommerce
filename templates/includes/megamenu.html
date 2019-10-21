@@ -104,6 +104,9 @@
 						<i class="fas fa-shopping-cart"></i>
 					</span>
 					<span>Cart</span>
+					{% if product_count > 0 %}
+						<span class="badge badge-info">{{ product_count }}</span>
+					{% endif %}
 				</a>
 			</li>
         </ul>
