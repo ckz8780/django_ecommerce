@@ -3,7 +3,7 @@
 
 
 {% block page_header %}
-<div class="container">
+<div class="container header-container bg-white">
 	{% if messages %}
 		<div class="row">
 			<div class="col message-col">
@@ -27,11 +27,11 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container bg-white">
 	<div class="row">
 		{% for product in products %}
-			<div class="col-sm-6 col-md-4 col-lg-3">
-				<div class="card mb-3">
+			<div class="col-sm-6 col-md-4 col-lg-3 mb-3">
+				<div class="card h-100">
 					<img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
 					<div class="card-body">
 						<h5 class="card-title">{{ product.name }}</h5>

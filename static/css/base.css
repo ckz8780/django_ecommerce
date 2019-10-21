@@ -1,0 +1,12 @@
+body {
+	background: url('/media/homepage_background.jpg') no-repeat center center fixed;
+	background-size: cover;
+}
+
+.header-container {
+	padding-top: calc(72px + .5em);
+}
+
+.highlight {
+	font-weight: 700;
+}
