@@ -9,5 +9,5 @@ def search(request):
 		products = Product.objects.filter(name__icontains=query)
 		return render(request, 'products/products.html', {'products': products})
 	
-	messages.error(request, 'Please enter some search criteria')
+	messages.error(request, "You didn't enter any search criteria!")
 	return redirect(reverse('products'))

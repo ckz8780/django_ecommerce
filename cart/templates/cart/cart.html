@@ -4,19 +4,70 @@
 	<div class="container header-container">
 		<div class="row">
 			<div class="col">
-			    <h1>Cart</h1>
+
 		    </div>
 		</div>
 	</div>
 {% endblock %}
 
 {% block content %}
-	<div class="container">
+	<div class="overlay"></div>
+	<div class="container bg-white rounded mb-2">
+		<div class="row pt-2">
+			<div class="col">
+				<h1>Your Cart</h1>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col">
-			    <p>Cart contents</p>
-			    {{ cart_items }}
-			    {{ request.session.cart|length }}
+			    {% if cart_items %}
+					<div class="table-responsive rounded">
+						<table class="table table-sm table-borderless">
+							<thead class="thead-dark">
+								<tr>
+									<th scope="col">Item</th>
+									<th scope="col">Description</th>
+									<th scope="col">Qty</th>
+									<th scope="col">Price</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for item in cart_items %}
+									<tr>
+										<td class="p-0 w-25">
+											<img class="img-fluid" src="{{ item.product.image.url }}">
+										</td>
+										<td class="w-50">
+											<p>{{ item.product.name }}</p>
+											<small class="text-muted">{{ item.product.description }}</small>
+										</td>
+										<td>{{ item.quantity }}</td>
+										<td>${{ item.product.price }}</td>
+									</tr>
+								{% endfor %}
+								<tr>
+									<td colspan="4" class="pt-5 text-center">
+										<h3><strong>Cart Total: ${{ total }}</strong></h3>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<a href="" class="btn btn-success btn-lg btn-block">
+											<span class="icon">
+												<i class="far fa-credit-card"></i>
+											</span>
+											<span class="font-weight-bold">Checkout</span>
+											<div class="stripe-logo mt-3">
+												<img src="{{ MEDIA_URL }}powered_by_stripe.png">
+											</div>
+										</a>
+									</td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div>
+			    {% endif %}
 		    </div>
 		</div>
 	</div>
