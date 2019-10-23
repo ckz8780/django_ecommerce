@@ -49,7 +49,12 @@ INSTALLED_APPS = [
     'products',
     'cart',
     'search',
+
+    # Misc
+    'crispy_forms',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -66,7 +71,7 @@ ROOT_URLCONF = 'django_ecommerce.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'templates', 'allauth')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -82,6 +87,9 @@ TEMPLATES = [
                 # Cart context processor
                 'cart.contexts.cart_contents',
             ],
+            'builtins' : [
+                'crispy_forms.templatetags.crispy_forms_tags'
+            ]
         },
     },
 ]
