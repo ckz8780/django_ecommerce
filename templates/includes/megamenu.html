@@ -31,37 +31,36 @@
 										<div class="col-lg-6 mb-4">
 											<h6 class="font-weight-bold text-uppercase">All Products</h6>
 											<ul class="list-unstyled">
-												<li class="nav-item"><a href="" class="nav-link text-small pb-0 ">By Price</a></li>
-												<li class="nav-item"><a href="" class="nav-link text-small pb-0 ">By Rating</a></li>
-												<li class="nav-item"><a href="" class="nav-link text-small pb-0 ">By Category</a></li>
+												<li class="nav-item"><a href="{% url 'products' %}?sort=price&direction=asc" class="nav-link text-small pb-0">By Price</a></li>
+												<li class="nav-item"><a href="{% url 'products' %}?sort=rating&direction=asc" class="nav-link text-small pb-0 ">By Rating</a></li>
+												<li class="nav-item"><a href="{% url 'products' %}?sort=category&direction=asc" class="nav-link text-small pb-0 ">By Category</a></li>
 												<li class="nav-item"><a href="{% url 'products' %}" class="nav-link text-small pb-0 ">All Products</a></li>
 											</ul>
 										</div>
 										<div class="col-lg-6 mb-4">
 											<h6 class="font-weight-bold text-uppercase">Clothes</h6>
 											<ul class="list-unstyled">
-												<li class="nav-item"><a href="" class="nav-link text-small pb-0">Active Wear</a></li>
-												<li class="nav-item"><a href="" class="nav-link text-small pb-0 ">Jeans</a></li>
-												<li class="nav-item"><a href="" class="nav-link text-small pb-0 ">Shirts</a></li>
-												<li class="nav-item"><a href="" class="nav-link text-small pb-0 ">All Clothes</a></li>
+												<li class="nav-item"><a href="{% url 'products' %}?category=activewear,essentials" class="nav-link text-small pb-0">Active Wear &amp; Essentials</a></li>
+												<li class="nav-item"><a href="{% url 'products' %}?category=jeans" class="nav-link text-small pb-0 ">Jeans</a></li>
+												<li class="nav-item"><a href="{% url 'products' %}?category=shirts" class="nav-link text-small pb-0 ">Shirts</a></li>
+												<li class="nav-item"><a href="{% url 'products' %}?category=activewear,jeans,shirts" class="nav-link text-small pb-0 ">All Clothes</a></li>
 											</ul>
 										</div>
 										<div class="col-lg-6 mb-4">
 											<h6 class="font-weight-bold text-uppercase">Home</h6>
 											<ul class="list-unstyled">
-												<li class="nav-item"><a href="" class="nav-link text-small pb-0 ">Bed &amp; Bath</a></li>
-												<li class="nav-item"><a href="" class="nav-link text-small pb-0 ">Kitchen &amp; Dining</a></li>
-												<li class="nav-item"><a href="" class="nav-link text-small pb-0 ">Essentials</a></li>
-												<li class="nav-item"><a href="" class="nav-link text-small pb-0 ">All Home</a></li>
+												<li class="nav-item"><a href="{% url 'products' %}?category=bed_bath" class="nav-link text-small pb-0 ">Bed &amp; Bath</a></li>
+												<li class="nav-item"><a href="{% url 'products' %}?category=kitchen_dining" class="nav-link text-small pb-0 ">Kitchen &amp; Dining</a></li>
+												<li class="nav-item"><a href="{% url 'products' %}?category=bed_bath,kitchen_dining,essentials" class="nav-link text-small pb-0 ">All Home</a></li>
 											</ul>
 										</div>
 										<div class="col-lg-6 mb-4">
 											<h6 class="font-weight-bold text-uppercase">Specials</h6>
 											<ul class="list-unstyled">
-												<li class="nav-item"><a href="" class="nav-link text-small pb-0 ">New Arrivals</a></li>
-												<li class="nav-item"><a href="" class="nav-link text-small pb-0 ">Deals</a></li>
-												<li class="nav-item"><a href="" class="nav-link text-small pb-0 ">Clearance</a></li>
-												<li class="nav-item"><a href="" class="nav-link text-small pb-0 ">All Specials</a></li>
+												<li class="nav-item"><a href="{% url 'products' %}?category=new_arrivals" class="nav-link text-small pb-0 ">New Arrivals</a></li>
+												<li class="nav-item"><a href="{% url 'products' %}?category=deals" class="nav-link text-small pb-0 ">Deals</a></li>
+												<li class="nav-item"><a href="{% url 'products' %}?category=clearance" class="nav-link text-small pb-0 ">Clearance</a></li>
+												<li class="nav-item"><a href="{% url 'products' %}?category=new_arrivals,deals,clearance" class="nav-link text-small pb-0 ">All Specials</a></li>
 											</ul>
 										</div>
 									</div>
