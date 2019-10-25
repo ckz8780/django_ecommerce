@@ -3,27 +3,35 @@
 
 {% block page_header %}
 <div class="container header-container">
-	{% if messages %}
-		<div class="row">
-			<div class="col message-col">
-				{% for message in messages %}
-					<div class="alert alert-danger alert-dismissible fade show mt-4" role="alert">
-						<strong>Whoops!</strong> {{ message }}
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-				{% endfor %}
-			</div>
-		</div>
-	{% endif %}
 	<div class="row">
 		<div class="col">
-			<div class="p-3 my-0 bg-white border rounded mb-3">
-				<h1 class="mb-0">Search</h1>
+			<div class="p-4 my-0 bg-white border rounded mb-3">
+				<div class="search-form-container">
+					<form class="form" method="GET" action="{% url 'search' %}">
+						<div class="form-row">
+							<div class="col my-auto">
+								<div class="input-group">
+									<input class="form-control form-control-lg input-info" type="text" name="q" placeholder="Search product names and descriptions..." id="id_q">
+									<div class="input-group-append">
+										<input class="form-control form-control-lg btn btn-lg btn-outline-info" type="submit" value="Search Products">
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
+	{% if search_term %}
+		<div class="row">
+			<div class="col">
+				<div class="results-alert">
+					<h5 class="mt-2">Results for "{{ search_term }}"</h5>
+				</div>
+			</div>
+		</div>
+	{% endif %}
 </div>
 {% endblock %}
 

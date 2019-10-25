@@ -3,6 +3,7 @@
 }
 
 .megamenu .dropdown-menu {
+  opacity: 1;
   background: none;
   border: none;
   width: 100%;
@@ -16,13 +17,13 @@
   letter-spacing: 0.08em;
 }
 
-.nav-link {
-	margin-left: 0;
+.nav-link, .ease-link {
 	transition: all .2s ease-in-out;
 }
 
-.nav-link:hover {
+.nav-link:hover, .ease-link:hover {
 	color: #17a2b8 !important;
+  text-decoration: none;
 	transition: all .2s ease-in-out;
 }
 
@@ -37,6 +38,6 @@
   opacity: 0;
   max-height: 0;
   visibility: hidden;
-  transition: all 0.2s ease-in-out;
   overflow: hidden;
+  transition: all .2s ease-in-out;
 }

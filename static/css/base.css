@@ -4,11 +4,19 @@ body {
 }
 
 .header-container {
-	padding-top: calc(72px + .5em);
+	padding-top: calc(89px + .5em);
 }
 
 .highlight {
 	font-weight: 700;
+}
+
+.logo-font {
+	font-family: 'Liu Jian Mao Cao', cursive;
+}
+
+.homepage-title {
+	font-size: 7rem;
 }
 
 .overlay {
@@ -19,4 +27,70 @@ body {
 	position: fixed;
 	background-image: linear-gradient(to top, rgba(207, 217, 223, .75) 0, rgba(226, 235, 240, .75) 100%);
 	z-index: -1;
+}
+
+
+/* Bootstrap Toasts */
+.message-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 99999999999;
+}
+
+
+/* Allauth form formatting */
+.allauth-form-inner-content h1 {
+	font-family: 'Liu Jian Mao Cao', cursive;
+    font-size: 3.5rem; /* display-4 */
+    font-weight: 300; /* display-4 */
+    line-height: 1.2; /* display-4 */
+}
+
+.allauth-form-inner-content p {
+	margin-top: 1.5rem; /* mt-4 */
+	color: #6c757d; /* text-secondary */
+}
+
+.allauth-form-inner-content input {
+	border-color: #17a2b8; /* text-info */
+}
+
+.allauth-form-inner-content button,
+.allauth-form-inner-content input[type='submit'] {
+	/* btn */
+	display: inline-block;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+
+    /* btn-info */
+    color: #fff;
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+
+    /* standard bootstrap btn transitions */
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.allauth-form-inner-content button:hover,
+.allauth-form-inner-content input[type='submit']:hover {	
+	color: #fff;
+    background-color: #138496;
+    border-color: #117a8b;
+}
+
+.allauth-form-inner-content a {
+	color: #17a2b8;
 }
