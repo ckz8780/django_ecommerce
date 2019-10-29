@@ -40,7 +40,8 @@ body {
 	transition: max-height .3s;
 }
 
-.read-more-link {
+.read-more-link,
+.remove-item {
 	cursor: pointer;
 }
 

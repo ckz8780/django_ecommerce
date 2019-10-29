@@ -6,16 +6,16 @@
 		<!-- Left Nav -->
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item">
-				<h3>
+				<h2 class="menu-logo">
 	            	<a href="{% url 'home' %}" class="nav-link font-weight-bold logo-font text-info">
 	            		Boutique <span class="highlight">Ado</span>
 	            	</a>
-	            </h3>
+	            </h2>
             </li>
 			<!-- Megamenu-->
 			<li class="nav-item dropdown megamenu pt-2">
-				<a id="megamenu" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle font-weight-bold text-uppercase">
-					<span class="icon">
+				<a id="megamenu" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">
+					<span class="icon text-info">
             			<i class="fas fa-gifts"></i>
             		</span>
             		<span>Products</span>
@@ -87,33 +87,55 @@
 		</ul>
 		<!-- Right Nav -->
 		<ul class="navbar-nav">
-            <li class="nav-item">
-            	<a href="{% url 'account_signup' %}" class="nav-link font-weight-bold text-uppercase">
-            		<span class="icon">
-            			<i class="fas fa-user-plus"></i>
-            		</span>
-            		<span>Register</span>
-            	</a>
-            </li>
-			<li class="nav-item">
-				<a href="{% url 'account_login' %}" class="nav-link font-weight-bold text-uppercase">
-					<span class="icon">
-						<i class="fas fa-sign-in-alt"></i>
-					</span>
-					<span>Login</span>
-				</a>
-			</li>
-			<li class="nav-item">
-				<a href="{% url 'view_cart' %}" class="nav-link font-weight-bold text-uppercase">
-					<span class="icon">
-						<i class="fas fa-shopping-cart"></i>
-					</span>
-					<span>Cart</span>
-					{% if product_count > 0 %}
-						<span class="badge badge-info">{{ product_count }}</span>
-					{% endif %}
-				</a>
-			</li>
+			{% if request.user.is_authenticated %}
+				<li class="nav-item">
+					<a href="{% url 'view_cart' %}" class="nav-link">
+						<span class="icon text-info">
+							<i class="fas fa-shopping-cart"></i>
+						</span>
+						<span>Cart</span>
+						{% if product_count > 0 %}
+							<span class="badge badge-info">{{ product_count }}</span>
+						{% endif %}
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="{% url 'account_logout' %}" class="nav-link">
+						<span>Logout</span>
+						<span class="icon text-danger">
+							<i class="fas fa-sign-out-alt"></i>
+						</span>
+					</a>
+				</li>
+			{% else %}
+				<li class="nav-item">
+					<a href="{% url 'view_cart' %}" class="nav-link">
+						<span class="icon text-info">
+							<i class="fas fa-shopping-cart"></i>
+						</span>
+						<span>Cart</span>
+						{% if product_count > 0 %}
+							<span class="badge badge-info">{{ product_count }}</span>
+						{% endif %}
+					</a>
+				</li>
+	            <li class="nav-item">
+	            	<a href="{% url 'account_signup' %}" class="nav-link">
+	            		<span>Register</span>
+	            		<span class="icon text-info">
+	            			<i class="fas fa-user-plus"></i>
+	            		</span>
+	            	</a>
+	            </li>
+				<li class="nav-item">
+					<a href="{% url 'account_login' %}" class="nav-link">
+						<span>Login</span>
+						<span class="icon text-info">
+							<i class="fas fa-sign-in-alt"></i>
+						</span>
+					</a>
+				</li>
+			{% endif %}
         </ul>
 	</div>
 </nav>

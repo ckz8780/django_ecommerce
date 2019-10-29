@@ -91,14 +91,19 @@
 {% block postloadjs %}
 	{{ block.super }}
 	<script type="text/javascript">
+		// Remove item and reload on click
 		$('.remove-item').click(function(){
-			
+
 			var csrfToken = "{{ csrf_token }}"
 			var itemId = $(this).attr('id').split('remove_')[1];
 			var url = `/cart/remove/${itemId}/`;
 			var data = {'csrfmiddlewaretoken': csrfToken};
 
-			$.post(url, data).success(location.reload());
+			$.post(url, data)
+			 .done(function() {
+				$('.toast').toast('show');
+				location.reload();
+			})
 		})
 	</script>
 {% endblock %}
