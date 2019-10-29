@@ -27,7 +27,9 @@
 								<div class="p-4">
 									<div class="row">
 										<div class="col-lg-6 mb-4">
-											<h6 class="font-weight-bold text-uppercase">All Products</h6>
+											<h6 class="font-weight-bold text-uppercase">
+												<a class="nav-link p-0 text-dark" href="{% url 'products' %}">All Products</a>
+											</h6>
 											<ul class="list-unstyled">
 												<li class="nav-item"><a href="{% url 'products' %}?sort=price&direction=asc" class="nav-link text-small pb-0">By Price</a></li>
 												<li class="nav-item"><a href="{% url 'products' %}?sort=rating&direction=asc" class="nav-link text-small pb-0 ">By Rating</a></li>
@@ -36,7 +38,9 @@
 											</ul>
 										</div>
 										<div class="col-lg-6 mb-4">
-											<h6 class="font-weight-bold text-uppercase">Clothes</h6>
+											<h6 class="font-weight-bold text-uppercase">
+												<a class="nav-link p-0 text-dark" href="{% url 'products' %}?category=activewear,jeans,shirts">Clothes</a>
+											</h6>
 											<ul class="list-unstyled">
 												<li class="nav-item"><a href="{% url 'products' %}?category=activewear,essentials" class="nav-link text-small pb-0">Active Wear &amp; Essentials</a></li>
 												<li class="nav-item"><a href="{% url 'products' %}?category=jeans" class="nav-link text-small pb-0 ">Jeans</a></li>
@@ -45,7 +49,9 @@
 											</ul>
 										</div>
 										<div class="col-lg-6 mb-4">
-											<h6 class="font-weight-bold text-uppercase">Home</h6>
+											<h6 class="font-weight-bold text-uppercase">
+												<a class="nav-link p-0 text-dark" href="{% url 'products' %}?category=bed_bath,kitchen_dining,essentials">Home</a>
+											</h6>
 											<ul class="list-unstyled">
 												<li class="nav-item"><a href="{% url 'products' %}?category=bed_bath" class="nav-link text-small pb-0 ">Bed &amp; Bath</a></li>
 												<li class="nav-item"><a href="{% url 'products' %}?category=kitchen_dining" class="nav-link text-small pb-0 ">Kitchen &amp; Dining</a></li>
@@ -53,7 +59,9 @@
 											</ul>
 										</div>
 										<div class="col-lg-6 mb-4">
-											<h6 class="font-weight-bold text-uppercase">Specials</h6>
+											<h6 class="font-weight-bold text-uppercase">
+												<a class="nav-link p-0 text-dark" href="{% url 'products' %}?category=new_arrivals,deals,clearance">Specials</a>
+											</h6>
 											<ul class="list-unstyled">
 												<li class="nav-item"><a href="{% url 'products' %}?category=new_arrivals" class="nav-link text-small pb-0 ">New Arrivals</a></li>
 												<li class="nav-item"><a href="{% url 'products' %}?category=deals" class="nav-link text-small pb-0 ">Deals</a></li>

@@ -7,7 +7,7 @@
 		<div class="col">
 			<div class="p-4 my-0 bg-white border rounded mb-3">
 				<div class="search-form-container">
-					<form class="form" method="GET" action="{% url 'search' %}">
+					<form class="form" method="GET" action="{% url 'products' %}">
 						<div class="form-row">
 							<div class="col my-auto">
 								<div class="input-group">
@@ -42,15 +42,23 @@
 		{% for product in products %}
 			<div class="col-sm-6 col-md-4 col-lg-3 mb-3">
 				<div class="card h-100">
-					<img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
+					<a href="{{ product.image.url }}" target="_blank">
+						<img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
+					</a>
 					<div class="card-body">
 						<h5 class="card-title">{{ product.name }}</h5>
-						<small class="card-text text-muted">{{ product.description|truncatechars:100 }}</small>
+						<div class="desc-container">
+							<small class="card-text text-muted">{{ product.description }}</small>
+						</div>
+						<small class="nav-link p-0 read-more-link">Read More</small>
 					</div>
-					<div class="card-footer text-center">
+					<div class="product-rating">
+						<small class="text-muted">{{ product.rating }} / 5</small>
+					</div>
+					<div class="card-footer text-left">
 						<div class="row">
 							<div class="col">
-								<p class="lead text-center font-weight-bold">${{ product.price }}</p>
+								<p class="lead text-left font-weight-bold">${{ product.price }}</p>
 							</div>
 						</div>
 						<div class="row">
@@ -59,7 +67,7 @@
 									{% csrf_token %}
 									<div class="form-row">
 										<div class="col">
-											<input class="form-control form-control-sm" type="number" name="quantity" placeholder="0" min="0" max="99" id='id_qty'>
+											<input class="form-control form-control-sm" type="number" name="quantity" value="1" min="1" max="99" id='id_qty'>
 										</div>
 										<div class="col">
 											<input type="submit" class="form-control form-control-sm btn btn-sm btn-success" value="Add to Cart!">
@@ -76,3 +84,23 @@
 	</div>
 </div>
 {% endblock %}
+
+{% block postloadjs %}
+	{{ block.super }}
+	<script type="text/javascript">
+		$('.read-more-link').click(function() {
+			var descContainer = $(this).closest('.card-body').find('.desc-container')[0];
+			if($(descContainer).hasClass('expanded')){
+				$(descContainer).removeAttr('style');
+				$(descContainer).removeClass('expanded');
+				$(this).text('Read More')
+			} else {
+				$(descContainer).css('max-height', '1000px');
+				$(descContainer).addClass('expanded');
+				$(this).text('Read Less')
+			}
+		})
+	</script>
+{% endblock %}
+
+
