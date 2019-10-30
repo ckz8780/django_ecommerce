@@ -42,9 +42,15 @@
 		{% for product in products %}
 			<div class="col-sm-6 col-md-4 col-lg-3 mb-3">
 				<div class="card h-100">
+					{% if product.image %}
 					<a href="{{ product.image.url }}" target="_blank">
 						<img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
 					</a>
+					{% else %}
+					<a href="">
+						<img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
+					</a>
+					{% endif %}
 					<div class="card-body">
 						<h5 class="card-title">{{ product.name }}</h5>
 						<div class="desc-container">
@@ -53,7 +59,11 @@
 						<small class="nav-link p-0 read-more-link">Read More</small>
 					</div>
 					<div class="product-rating">
-						<small class="text-muted">{{ product.rating }} / 5</small>
+						{% if product.rating %}
+							<small class="text-muted">{{ product.rating }} / 5</small>
+						{% else %}
+							<small class="text-muted">No Rating</small>
+						{% endif %}
 					</div>
 					<div class="card-footer text-left">
 						<div class="row">
@@ -75,6 +85,8 @@
 									</div>
 								</form>
 								<small class="d-block mt-3">See more <a href="{% url 'products' %}?category={{ product.category.name }}">{{ product.category.friendly_name }}</a></small>
+								<small class="d-block"><a href="{% url 'edit_product' product.id %}">Edit Product</a></small>
+								<small class="d-block"><a class="text-danger" href="{% url 'delete_product' product.id %}">Delete Product</a></small>
 							</div>
 						</div>						
 					</div>
