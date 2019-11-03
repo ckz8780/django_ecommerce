@@ -82,11 +82,14 @@
 										<div class="col">
 											<input type="submit" class="form-control form-control-sm btn btn-sm btn-success" value="Add to Cart!">
 										</div>
+										<input type="hidden" name="redirect_url" value="{{ request.build_absolute_uri }}">
 									</div>
 								</form>
 								<small class="d-block mt-3">See more <a href="{% url 'products' %}?category={{ product.category.name }}">{{ product.category.friendly_name }}</a></small>
+								{% if request.user.is_superuser %}
 								<small class="d-block"><a href="{% url 'edit_product' product.id %}">Edit Product</a></small>
 								<small class="d-block"><a class="text-danger" href="{% url 'delete_product' product.id %}">Delete Product</a></small>
+								{% endif %}
 							</div>
 						</div>						
 					</div>

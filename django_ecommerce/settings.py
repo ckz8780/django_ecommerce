@@ -86,7 +86,8 @@ TEMPLATES = [
                 'cart.contexts.cart_contents',
             ],
             'builtins' : [
-                'crispy_forms.templatetags.crispy_forms_tags'
+                'crispy_forms.templatetags.crispy_forms_tags',
+                'crispy_forms.templatetags.crispy_forms_field'
             ]
         },
     },
@@ -172,3 +173,10 @@ LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 
 SITE_ID = 1
+
+# STRIPE/PAYMENTS
+
+FREE_SHIPPING_THRESHOLD = 50
+STANDARD_SHIPPING_PERCENTAGE = 10
+STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')

@@ -64,11 +64,26 @@
 								{% endfor %}
 								<tr>
 									<td colspan="4" class="pt-5 text-right">
-										<h4><strong>Cart Total: ${{ total }}</strong></h4>
+										<h6><strong>Cart Total: ${{ total|floatformat:2 }}</strong></h6>
+										<h6>Shipping: ${{ shipping|floatformat:2 }}</h6>
+										<h4 class="mt-4"><strong>Grand Total: ${{ grand_total|floatformat:2 }}</strong></h4>
+										{% if free_shipping_delta > 0 %}
+											<p class="mb-1 text-danger">
+												You could get free shipping by spending just <strong>${{ free_shipping_delta }}</strong> more!
+											</p>
+										{% endif %}
 									</td>
 								</tr>
 								<tr>
 									<td colspan="4" class="text-right">
+										{% if free_shipping_delta > 0 %}
+											<a href="{% url 'products' %}" class="btn btn-info">
+												<span class="icon">
+													<i class="fas fa-gifts"></i>
+												</span>
+												<span class="font-weight-bold">Keep Shopping</span>
+											</a>
+										{% endif %}
 										<a href="{% url 'checkout' %}" class="btn btn-success">
 											<span class="icon">
 												<i class="far fa-credit-card"></i>

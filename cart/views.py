@@ -18,6 +18,8 @@ def add_to_cart(request, item_id):
     cart = request.session.get('cart', {})
     product = Product.objects.get(id=item_id)
 
+    redirect_url = request.POST.get('redirect_url')
+
     if item_id in list(cart.keys()):
         cart[item_id] += quantity
         messages.success(request, f'Updated {product.name} quantity to {cart[item_id]}')
@@ -26,7 +28,7 @@ def add_to_cart(request, item_id):
         messages.success(request, f'Added {product.name} to your cart')
 
     request.session['cart'] = cart
-    return redirect(reverse('products'))
+    return redirect(redirect_url)
     
     
 def adjust_cart(request, item_id):
