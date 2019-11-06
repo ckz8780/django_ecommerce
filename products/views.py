@@ -82,7 +82,6 @@ def edit_product(request, product_id):
 
 	if request.user.is_superuser:
 		if request.method == 'POST':
-			print('post!')
 			product = Product.objects.get(id=product_id)
 			form = ProductForm(request.POST, request.FILES, instance=product)
 			if form.is_valid():
