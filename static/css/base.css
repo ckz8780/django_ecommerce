@@ -3,6 +3,12 @@ body {
 	background-size: cover;
 }
 
+@media (min-width: 1200px) {
+  .container {
+    max-width: 80%;
+  }
+}
+
 .header-container {
 	padding-top: calc(89px + .5em);
 }

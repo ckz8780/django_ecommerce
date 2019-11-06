@@ -1,16 +1,26 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
 from django.db.models import Q
+from django.db.models.functions import Lower
 
-from .models import Product
+from .models import Product, Category
 from .forms import ProductForm
 
 def all_products(request):
 	products = Product.objects.all()
 	query = None
+	sort = None
+	direction = None
+	categories = None
 	if request.GET:
 		if 'sort' in request.GET:
 			sortkey = request.GET['sort']
+			sort = sortkey
+			# If filtering on name we need to annotate
+			# to allow case-insensitive sorting
+			if sortkey == 'name':
+				sortkey = 'lower_name'
+				products = products.annotate(lower_name=Lower('name'))
 			if 'direction' in request.GET:
 				direction = request.GET['direction']
 				if direction == 'desc':
@@ -21,6 +31,8 @@ def all_products(request):
 		if 'category' in request.GET:
 			categories = request.GET['category'].split(',')
 			products = products.filter(category__name__in=categories)
+			# Get the actual category objects to use in the template
+			categories = [Category.objects.get(name=c) for c in categories]
 
 		if 'q' in request.GET:
 			query = request.GET['q']
@@ -31,7 +43,17 @@ def all_products(request):
 			queries = Q(name__icontains=query) | Q(description__icontains=query)
 			products = products.filter(queries)
 
-	return render(request, 'products/products.html', {'products': products, 'search_term': query})
+	current_sorting = f'{sort}_{direction}'
+
+	context = {
+		'products': products,
+		'search_term': query,
+		'current_sorting': current_sorting,
+		'current_categories': categories,
+	}
+
+	return render(request, 'products/products.html', context)
+
 
 def product_management(request):
 	

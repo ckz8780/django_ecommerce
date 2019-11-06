@@ -41,7 +41,7 @@
 										<td class="w-50">
 											<p>{{ item.product.name }}</p>
 											<p class="p-0 m-0"><small class="text-muted">${{ item.product.price }} each</small></p>
-											<small class="text-muted">{{ item.product.description }}</small>
+											<p class="mt-2">{{ item.product.description }}</p>
 										</td>
 										<td>
 											<form class="form" method="POST" action="{% url 'adjust_cart' item.item_id %}">

@@ -22,17 +22,19 @@
 	background-color: #fefde5 !important;
 }
 
-.fieldset-background {
-	background: rgba(226, 233, 237, 0.85);
-	box-shadow: 0 1px 3px 0 #cfd7df;
-} 
+.fieldset-label {
+	position: relative;
+	right: .5rem;
+}
 
 .stripe-style-input::placeholder {
 	color: #aab7c4;
 }
 
-#payment-form .form-control {
+#payment-form .form-control,
+#card-element {
 	color: #17a2b8;
+	border: 1px solid #17a2b8;
 }
 
 #loading-overlay {
