@@ -55,22 +55,22 @@ def all_products(request):
 	return render(request, 'products/products.html', context)
 
 
-def product_management(request):
+def add_product(request):
 	
 	if request.method == 'POST':
 		form = ProductForm(request.POST, request.FILES)
 		if form.is_valid():
 			form.save()
 			messages.success(request, 'Successfully added product')
-			return redirect(reverse('product_management'))
+			return redirect(reverse('add_product'))
 
 		messages.error(request, 'Failed to add product. Make sure your form is valid')
-		return redirect(reverse('product_management'))
+		return redirect(reverse('add_product'))
 
 	
 	form = ProductForm()
 
-	template = 'products/product_management.html'
+	template = 'products/add_product.html'
 	context = {
 		'form': form
 	}
@@ -78,21 +78,36 @@ def product_management(request):
 	return render(request, template, context)
 
 def edit_product(request, product_id):
-	if request.user.is_superuser:
-		try:
-			product = Product.objects.get(id=product_id)
-			form = ProductForm(instance=product)
-			messages.info(request, f'You are editing {product.name}')
+	product = None 
 
-		except Product.DoesNotExist:
-			messages.error(request, 'Product not found. Are you sure it exists?')
-			form = ProductForm()
+	if request.user.is_superuser:
+		if request.method == 'POST':
+			print('post!')
+			product = Product.objects.get(id=product_id)
+			form = ProductForm(request.POST, request.FILES, instance=product)
+			if form.is_valid():
+				form.save()
+				messages.success(request, 'Product successfully updated!')
+				return redirect(reverse('products'))
+			else:
+				messages.error(request, 'Error updating product. Make sure your form is valid')
+				return redirect(reverse('edit_product', args=[product.id]))
+		else:
+			try:
+				product = Product.objects.get(id=product_id)
+				form = ProductForm(instance=product)
+				messages.info(request, f'You are editing {product.name}')
+
+			except Product.DoesNotExist:
+				messages.error(request, 'Product not found. Are you sure it exists?')
+				form = ProductForm()
 	else:
 		messages.error(request, 'You must be a store manager to do this.')
 
-	template = 'products/product_management.html'
+	template = 'products/edit_product.html'
 	context = {
-		'form': form
+		'form': form,
+		'product': product
 	}
 
 	return render(request, template, context)

@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load cart_tools %}
 
 {% block page_header %}
 	<div class="container header-container">
@@ -17,16 +16,17 @@
 		<div class="row">
 			<div class="col">
 				<h1 class="display-4 logo-font mb-4">Product Management</h1>
-				<h5 class="text-muted">Add a Product</h5>
+				<h5 class="text-muted">Edit a Product</h5>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-12 col-md-6">
-				<form enctype="multipart/form-data" class="form" action="{% url 'product_management' %}" method="POST">
+				<form enctype="multipart/form-data" class="form" action="{% url 'edit_product' product.id %}" method="POST">
 					{% csrf_token %}
 					{{ form|crispy }}
 					<div class="text-right">
-						<button class="btn btn-info" type="submit">Add Product</button>
+						<a class="btn btn-dark" href="{% url 'products' %}">Cancel Update</a>
+						<button class="btn btn-info" type="submit">Update Product</button>
 					</div>
 				</form>
 		    </div>
