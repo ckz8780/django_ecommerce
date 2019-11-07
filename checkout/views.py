@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, reverse
 from django.conf import settings
 from django.contrib import messages
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 from .forms import OrderForm
 from products.models import Product
@@ -14,6 +16,7 @@ def checkout(request):
 
 		form_data = {
 			'full_name': request.POST['full_name'],
+			'email': request.POST['email'],
 			'phone_number': request.POST['phone_number'],
 			'country': request.POST['country'],
 			'postcode': request.POST['postcode'],
@@ -72,6 +75,18 @@ def checkout_success(request, order_number):
 
 	messages.success(request, f'Order successfully processed! Your order number is {order_number}')
 	order = Order.objects.get(order_number=order_number)
+
+	# Send a confirmation email
+	cust_email = order.email
+	subject = render_to_string('checkout/confirmation_emails/confirmation_email_subject.txt', {'order': order})
+	body = render_to_string('checkout/confirmation_emails/confirmation_email_body.txt', {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL})
+
+	send_mail(
+		subject,
+		body,
+		settings.DEFAULT_FROM_EMAIL,
+		[cust_email]
+	)
 
 	template = 'checkout/checkout_success.html'
 	context = {

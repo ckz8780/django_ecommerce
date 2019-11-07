@@ -36,6 +36,7 @@ def cart_contents(request):
         'product_count': product_count,
         'shipping': shipping,
         'free_shipping_delta': free_shipping_delta,
+        'free_shipping_threshold': settings.FREE_SHIPPING_THRESHOLD,
         'grand_total': grand_total,
     }
     
