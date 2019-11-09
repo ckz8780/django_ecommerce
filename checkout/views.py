@@ -73,8 +73,8 @@ def checkout(request):
 
 def checkout_success(request, order_number):
 
-	messages.success(request, f'Order successfully processed! Your order number is {order_number}')
 	order = Order.objects.get(order_number=order_number)
+	messages.success(request, f'Order successfully processed! Your order number is {order_number}. A confirmation email has been sent to {order.email}.')
 
 	# Send a confirmation email
 	cust_email = order.email

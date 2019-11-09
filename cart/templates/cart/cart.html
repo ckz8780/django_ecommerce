@@ -13,7 +13,7 @@
 
 {% block content %}
 	<div class="overlay"></div>
-	<div class="container bg-white rounded mb-2">
+	<div class="container {% if cart_items %}bg-white{% endif %} rounded mb-2">
 		<div class="row">
 			<div class="col">
 				<h1 class="display-4 logo-font mb-4">Your Cart</h1>
@@ -35,15 +35,15 @@
 							<tbody>
 								{% for item in cart_items %}
 									<tr>
-										<td class="p-0 w-25">
-											<img class="img-fluid" src="{{ item.product.image.url }}">
+										<td class="p-3 w-25">
+											<img class="img-fluid shadow rounded" src="{{ item.product.image.url }}">
 										</td>
-										<td class="w-50">
+										<td class="py-3 w-50">
 											<p>{{ item.product.name }}</p>
 											<p class="p-0 m-0"><small class="text-muted">${{ item.product.price }} each</small></p>
 											<p class="mt-2">{{ item.product.description }}</p>
 										</td>
-										<td>
+										<td class="py-3">
 											<form class="form" method="POST" action="{% url 'adjust_cart' item.item_id %}">
 					                            {% csrf_token %}
 					                            <div class="form-group">
@@ -57,7 +57,7 @@
 					                        </form>
 					                        <a class="remove-item text-danger" id="remove_{{ item.item_id }}"><small>Remove</small></a>
 										</td>
-										<td>
+										<td class="py-3">
 											<p>${{ item.product.price | calc_subtotal:item.quantity }}</p>
 										</td>
 									</tr>

@@ -9,8 +9,35 @@ body {
   }
 }
 
-.header-container {
-	padding-top: calc(89px + .5em);
+/* fixed top navbar only on medium and up */
+@media (min-width: 992px) {
+    .fixed-top-desktop-only {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 1030;
+    }
+
+    .header-container {
+    	padding-top: 104px;
+    }
+}
+
+/* pad the top a bit when navbar is collapsed on mobile */
+@media (max-width: 991px) {
+    .header-container {
+        padding-top: 10px;
+    }
+}
+
+/* from Bulma */
+.icon {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    height: 1.5rem;
+    width: 1.5rem;
 }
 
 .highlight {
@@ -136,4 +163,25 @@ body {
     background: white;
     cursor: pointer;
     display: block;
+}
+
+.btn-light.filter-hover-info:hover,
+.btn-light.filter-hover-info:active {
+    background: #17a2b8 !important;
+    color: #fff !important;
+}
+
+.sticky-sidebar {
+    position: sticky;
+    top: 104px;
+}
+
+a.category-badge > span.badge:hover {
+    background: #212529 !important;
+    color: #fff !important;
+}
+
+.results-alert {
+    width: fit-content;
+    border-radius: 3px;
 }

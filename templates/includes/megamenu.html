@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white py-3 shadow-sm">
+<nav class="navbar fixed-top-desktop-only navbar-expand-lg navbar-light bg-white py-3 shadow-sm">
 	<button type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler">
 		<span class="navbar-toggler-icon"></span>
 	</button>
@@ -14,11 +14,14 @@
             </li>
 			<!-- Megamenu-->
 			<li class="nav-item dropdown megamenu pt-2">
-				<a id="megamenu" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">
+				<a id="megamenu" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link">
 					<span class="icon text-info">
             			<i class="fas fa-gifts"></i>
             		</span>
             		<span>Products</span>
+            		<span class="icon">
+            			<i class="fas fa-sm fa-caret-square-down"></i>
+            		</span>
 				</a>
 				<div aria-labelledby="megamenu" class="dropdown-menu border-0 p-0 m-0">
 					<div class="container-fluid p0">
@@ -31,10 +34,30 @@
 												<a class="nav-link p-0 text-dark" href="{% url 'products' %}">All Products</a>
 											</h6>
 											<ul class="list-unstyled">
-												<li class="nav-item"><a href="{% url 'products' %}?sort=price&direction=asc" class="nav-link text-small pb-0">By Price</a></li>
-												<li class="nav-item"><a href="{% url 'products' %}?sort=rating&direction=asc" class="nav-link text-small pb-0 ">By Rating</a></li>
-												<li class="nav-item"><a href="{% url 'products' %}?sort=category&direction=asc" class="nav-link text-small pb-0 ">By Category</a></li>
-												<li class="nav-item"><a href="{% url 'products' %}" class="nav-link text-small pb-0 ">All Products</a></li>
+												<li class="nav-item">
+													<a href="{% url 'products' %}?sort=price&direction=asc" class="nav-link text-small pb-0">
+														<span class="icon mr-2 text-info"><i class="fas fa-dollar-sign"></i></span>
+														<span>By Price</span>
+													</a>
+												</li>
+												<li class="nav-item">
+													<a href="{% url 'products' %}?sort=rating&direction=asc" class="nav-link text-small pb-0 ">
+														<span class="icon mr-2 text-info"><i class="fas fa-star"></i></span>
+														<span>By Rating</span>
+													</a>
+												</li>
+												<li class="nav-item">
+													<a href="{% url 'products' %}?sort=category&direction=asc" class="nav-link text-small pb-0 ">
+														<span class="icon mr-2 text-info"><i class="fas fa-copyright"></i></span>
+														<span>By Category</span>
+													</a>
+												</li>
+												<li class="nav-item">
+													<a href="{% url 'products' %}" class="nav-link text-small pb-0 ">
+														<span class="icon mr-2 text-info"><i class="fas fa-gifts"></i></span>
+														<span>All Products</span>
+													</a>
+												</li>
 											</ul>
 										</div>
 										<div class="col-lg-6 mb-4">
@@ -42,10 +65,30 @@
 												<a class="nav-link p-0 text-dark" href="{% url 'products' %}?category=activewear,jeans,shirts">Clothes</a>
 											</h6>
 											<ul class="list-unstyled">
-												<li class="nav-item"><a href="{% url 'products' %}?category=activewear,essentials" class="nav-link text-small pb-0">Active Wear &amp; Essentials</a></li>
-												<li class="nav-item"><a href="{% url 'products' %}?category=jeans" class="nav-link text-small pb-0 ">Jeans</a></li>
-												<li class="nav-item"><a href="{% url 'products' %}?category=shirts" class="nav-link text-small pb-0 ">Shirts</a></li>
-												<li class="nav-item"><a href="{% url 'products' %}?category=activewear,jeans,shirts" class="nav-link text-small pb-0 ">All Clothes</a></li>
+												<li class="nav-item">
+													<a href="{% url 'products' %}?category=activewear,essentials" class="nav-link text-small pb-0">
+														<span class="icon mr-2 text-info"><i class="fas fa-hiking"></i></span>
+														<span>Active Wear &amp; Essentials</span>
+													</a>
+												</li>
+												<li class="nav-item">
+													<a href="{% url 'products' %}?category=jeans" class="nav-link text-small pb-0 ">
+														<span class="icon mr-2 text-info"><i class="fas fa-walking"></i></span>
+														<span>Jeans</span>
+													</a>
+												</li>
+												<li class="nav-item">
+													<a href="{% url 'products' %}?category=shirts" class="nav-link text-small pb-0 ">
+														<span class="icon mr-2 text-info"><i class="fas fa-tshirt"></i></span>
+														<span>Shirts</span>
+													</a>
+												</li>
+												<li class="nav-item">
+													<a href="{% url 'products' %}?category=activewear,jeans,shirts" class="nav-link text-small pb-0 ">
+														<span class="icon mr-2 text-info"><i class="fas fa-shopping-bag"></i></span>
+														<span>All Clothes</span>
+													</a>
+												</li>
 											</ul>
 										</div>
 										<div class="col-lg-6 mb-4">
@@ -53,9 +96,24 @@
 												<a class="nav-link p-0 text-dark" href="{% url 'products' %}?category=bed_bath,kitchen_dining,essentials">Home</a>
 											</h6>
 											<ul class="list-unstyled">
-												<li class="nav-item"><a href="{% url 'products' %}?category=bed_bath" class="nav-link text-small pb-0 ">Bed &amp; Bath</a></li>
-												<li class="nav-item"><a href="{% url 'products' %}?category=kitchen_dining" class="nav-link text-small pb-0 ">Kitchen &amp; Dining</a></li>
-												<li class="nav-item"><a href="{% url 'products' %}?category=bed_bath,kitchen_dining,essentials" class="nav-link text-small pb-0 ">All Home</a></li>
+												<li class="nav-item">
+													<a href="{% url 'products' %}?category=bed_bath" class="nav-link text-small pb-0 ">
+														<span class="icon mr-2 text-info"><i class="fas fa-bath"></i></span>
+														<span>Bed &amp; Bath</span>
+													</a>
+												</li>
+												<li class="nav-item">
+													<a href="{% url 'products' %}?category=kitchen_dining" class="nav-link text-small pb-0 ">
+														<span class="icon mr-2 text-info"><i class="fas fa-utensils"></i></span>
+														<span>Kitchen &amp; Dining</span>
+													</a>
+												</li>
+												<li class="nav-item">
+													<a href="{% url 'products' %}?category=bed_bath,kitchen_dining,essentials" class="nav-link text-small pb-0 ">
+														<span class="icon mr-2 text-info"><i class="fas fa-home"></i></span>
+														<span>All Home</span>
+													</a>
+												</li>
 											</ul>
 										</div>
 										<div class="col-lg-6 mb-4">
@@ -63,10 +121,30 @@
 												<a class="nav-link p-0 text-dark" href="{% url 'products' %}?category=new_arrivals,deals,clearance">Specials</a>
 											</h6>
 											<ul class="list-unstyled">
-												<li class="nav-item"><a href="{% url 'products' %}?category=new_arrivals" class="nav-link text-small pb-0 ">New Arrivals</a></li>
-												<li class="nav-item"><a href="{% url 'products' %}?category=deals" class="nav-link text-small pb-0 ">Deals</a></li>
-												<li class="nav-item"><a href="{% url 'products' %}?category=clearance" class="nav-link text-small pb-0 ">Clearance</a></li>
-												<li class="nav-item"><a href="{% url 'products' %}?category=new_arrivals,deals,clearance" class="nav-link text-small pb-0 ">All Specials</a></li>
+												<li class="nav-item">
+													<a href="{% url 'products' %}?category=new_arrivals" class="nav-link text-small pb-0 ">
+														<span class="icon mr-2 text-info"><i class="fas fa-fire-alt"></i></span>
+														<span>New Arrivals</span>
+													</a>
+												</li>
+												<li class="nav-item">
+													<a href="{% url 'products' %}?category=deals" class="nav-link text-small pb-0 ">
+														<span class="icon mr-2 text-info"><i class="fas fa-handshake"></i></span>
+														<span>Deals</span>
+													</a>
+												</li>
+												<li class="nav-item">
+													<a href="{% url 'products' %}?category=clearance" class="nav-link text-small pb-0 ">
+														<span class="icon mr-2 text-info"><i class="fas fa-search-dollar"></i></span>
+														<span>Clearance</span>
+													</a>
+												</li>
+												<li class="nav-item">
+													<a href="{% url 'products' %}?category=new_arrivals,deals,clearance" class="nav-link text-small pb-0 ">
+														<span class="icon mr-2 text-info"><i class="fas fa-heart"></i></span>
+														<span>All Specials</span>
+													</a>
+												</li>
 											</ul>
 										</div>
 									</div>
@@ -75,8 +153,8 @@
 							<div class="col-lg-5 col-xl-4 d-none d-lg-block">
 								<div class="row h-100 bg-info">
 									<div class="col text-center text-light my-auto">
-										<h1 class="display-3">Free Shipping</h1>
-										<h5>On all orders over ${{ free_shipping_threshold }}!</h5>
+										<h1 class="display-3 logo-font">Free Shipping</h1>
+										<h5 class="mt-4">On all orders over ${{ free_shipping_threshold }}!</h5>
 									</div>
 								</div>
 							</div>
@@ -88,6 +166,7 @@
 		<!-- Right Nav -->
 		<ul class="navbar-nav">
 			{% if request.user.is_authenticated %}
+				{% if request.user.is_superuser %}
 				<li class="nav-item">
 					<a href="{% url 'add_product' %}" class="nav-link">
 						<span>Product Management</span>
@@ -96,6 +175,7 @@
 						</span>
 					</a>
 				</li>
+				{% endif %}
 				<li class="nav-item">
 					<a href="{% url 'view_cart' %}" class="nav-link">
 						<span class="icon text-info">

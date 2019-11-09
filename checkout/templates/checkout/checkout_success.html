@@ -21,7 +21,7 @@
 		<div class="row">
 			<div class="col">
 				<h1 class="display-4 logo-font mb-4">Thank You!</h1>
-				<p class="text-muted">Your order information is below</p>
+				<p class="text-muted">Your order information is below. A confirmation email has been sent to <strong>{{ order.email }}</strong></p>
 			</div>
 		</div>
 		<div class="row">
@@ -185,18 +185,18 @@
 		</div>
 		<div class="row">
 			<div class="col-12 col-lg-7 text-right">
-				<a href="{% url 'home' %}" class="btn btn-dark my-2">
+				<a href="{% url 'products' %}?category=new_arrivals,deals,clearance" class="btn btn-lg btn-success my-2">
 					<span class="icon mr-2">
-						<i class="fas fa-home"></i>
+						<i class="fas fa-gifts"></i>
 					</span>
-					<span class="font-weight-bold">Back Home</span>
+					<span class="font-weight-bold">Now check out the latest deals!</span>
 				</a>
-				<a href="{% url 'products' %}" class="btn btn-info my-2">
+				<!-- <a href="{% url 'products' %}" class="btn btn-info my-2">
 					<span class="icon mr-2">
 						<i class="fas fa-gifts"></i>
 					</span>
 					<span class="font-weight-bold">Keep Shopping</span>
-				</a>
+				</a> -->
 			</div>
 		</div>
 	</div>
