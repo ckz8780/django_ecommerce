@@ -39,7 +39,7 @@
 											<img class="img-fluid shadow rounded" src="{{ item.product.image.url }}">
 										</td>
 										<td class="py-3 w-50">
-											<p>{{ item.product.name }}</p>
+											<strong class="text-info"><p>{{ item.product.name }}{% if item.product.has_sizes %} - Size {{ item.size|upper }}{% endif %}</p></strong>
 											<p class="p-0 m-0"><small class="text-muted">${{ item.product.price }} each</small></p>
 											<p class="mt-2">{{ item.product.description }}</p>
 										</td>
@@ -52,10 +52,13 @@
 														<div class="input-group-append">
 															<button type="submit" class="btn btn-sm btn-outline-info" type="button">Update</button>
 														</div>
+														{% if item.product.has_sizes %}
+															<input type="hidden" name="product_size" value="{{ item.size }}">
+														{% endif %}
 													</div>
 					                            </div>
 					                        </form>
-					                        <a class="remove-item text-danger" id="remove_{{ item.item_id }}"><small>Remove</small></a>
+					                        <a class="remove-item text-danger" id="remove_{{ item.item_id }}" data-size="{{ item.size }}"><small>Remove</small></a>
 										</td>
 										<td class="py-3">
 											<p>${{ item.product.price | calc_subtotal:item.quantity }}</p>
@@ -113,7 +116,9 @@
 			var csrfToken = "{{ csrf_token }}"
 			var itemId = $(this).attr('id').split('remove_')[1];
 			var url = `/cart/remove/${itemId}/`;
-			var data = {'csrfmiddlewaretoken': csrfToken};
+			var size = $(this).data('size');
+			console.log(size);
+			var data = {'csrfmiddlewaretoken': csrfToken, 'size': size};
 
 			$.post(url, data)
 			 .done(function() {

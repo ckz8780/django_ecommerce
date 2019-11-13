@@ -169,10 +169,10 @@
 				{% if request.user.is_superuser %}
 				<li class="nav-item">
 					<a href="{% url 'add_product' %}" class="nav-link">
-						<span>Product Management</span>
 						<span class="icon text-info">
 							<i class="fas fa-cogs"></i>
 						</span>
+						<span>Product Management</span>
 					</a>
 				</li>
 				{% endif %}
@@ -187,13 +187,24 @@
 						{% endif %}
 					</a>
 				</li>
-				<li class="nav-item">
-					<a href="{% url 'account_logout' %}" class="nav-link">
-						<span>Logout</span>
-						<span class="icon text-danger">
-							<i class="fas fa-sign-out-alt"></i>
-						</span>
+				<li class="nav-item dropdown">
+					<a class="nav-link" href="#" id="user-menu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<span class="icon text-info">
+	            			<i class="fas fa-user"></i>
+	            		</span>
+	            		<span>{{ request.user.username }}</span>
+	            		<span class="icon">
+	            			<i class="fas fa-sm fa-caret-square-down"></i>
+	            		</span>
 					</a>
+					<div class="dropdown-menu border-0 shadow-sm dropdown-menu-right" aria-labelledby="user-menu">
+						<a href="{% url 'account_logout' %}" class="nav-link pl-2 text-md-right dropdown-item">
+							<span>Logout</span>
+							<span class="icon text-danger">
+								<i class="fas fa-sign-out-alt"></i>
+							</span>
+						</a>
+					</div>
 				</li>
 			{% else %}
 				<li class="nav-item">
@@ -209,18 +220,18 @@
 				</li>
 	            <li class="nav-item">
 	            	<a href="{% url 'account_signup' %}" class="nav-link">
-	            		<span>Register</span>
 	            		<span class="icon text-info">
 	            			<i class="fas fa-user-plus"></i>
 	            		</span>
+	            		<span>Register</span>
 	            	</a>
 	            </li>
 				<li class="nav-item">
 					<a href="{% url 'account_login' %}" class="nav-link">
-						<span>Login</span>
 						<span class="icon text-info">
 							<i class="fas fa-sign-in-alt"></i>
 						</span>
+						<span>Login</span>
 					</a>
 				</li>
 			{% endif %}

@@ -20,7 +20,7 @@
 		{% endif %}
 		<div class="row">
 			<div class="col">
-				<h5 class="text-info font-weight-normal">Quick Search</h5>
+				<h6 class="text-info">Quick Search</h6>
 			</div>
 		</div>
 		<div class="row">
@@ -47,7 +47,7 @@
 			<div class="row">
 				<div class="col">
 					<div>
-						<h5 class="text-info font-weight-normal">Current Categories</h5>
+						<h6 class="text-info">Current Categories</h6>
 						<div>
 							{% for c in current_categories %}
 								<a class="category-badge" href="{% url 'products' %}?category={{ c.name }}"><span class="p-2 mt-1 badge badge-light border border-dark">{{ c.friendly_name }}</span></a>
@@ -64,12 +64,12 @@
 		{% endif %}
 		<div class="row">
 			<div class="col">
-				<h5 class="text-info font-weight-normal">Filters</h5>
+				<h6 class="text-info">Filters</h6>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-6 col-lg-12">
-				<a class="btn my-1 btn-block {% if current_sorting != 'price_asc' %}btn-light filter-hover-info border-info text-info{% else %}btn-info{% endif %}" href="{{ request.GET | update_get:'sort=price&direction=asc' }}">
+				<a class="btn btn-sm my-1 btn-block {% if current_sorting != 'price_asc' %}btn-light filter-hover-info border-info text-info{% else %}btn-info{% endif %}" href="{{ request.GET | update_get:'sort=price&direction=asc' }}">
 					<span>Price</span>
 					<span class="icon ml-1">
 						<i class="fas fa-sort-numeric-down"></i>
@@ -77,7 +77,7 @@
 				</a>
 			</div>
 			<div class="col-6 col-lg-12">
-				<a class="btn my-1 btn-block {% if current_sorting != 'price_desc' %}btn-light filter-hover-info border-info text-info{% else %}btn-info{% endif %}" href="{{ request.GET | update_get:'sort=price&direction=desc' }}">
+				<a class="btn btn-sm my-1 btn-block {% if current_sorting != 'price_desc' %}btn-light filter-hover-info border-info text-info{% else %}btn-info{% endif %}" href="{{ request.GET | update_get:'sort=price&direction=desc' }}">
 					<span>Price</span>
 					<span class="icon ml-1">
 						<i class="fas fa-sort-numeric-down-alt"></i>
@@ -85,7 +85,7 @@
 				</a>
 			</div>
 			<div class="col-6 col-lg-12">
-				<a class="btn my-1 btn-block {% if current_sorting != 'rating_asc' %}btn-light filter-hover-info border-info text-info{% else %}btn-info{% endif %}" href="{{ request.GET | update_get:'sort=rating&direction=asc' }}">
+				<a class="btn btn-sm my-1 btn-block {% if current_sorting != 'rating_asc' %}btn-light filter-hover-info border-info text-info{% else %}btn-info{% endif %}" href="{{ request.GET | update_get:'sort=rating&direction=asc' }}">
 					<span>Rating</span>
 					<span class="icon ml-1">
 						<i class="fas fa-sort-numeric-down"></i>
@@ -93,7 +93,7 @@
 				</a>
 			</div>
 			<div class="col-6 col-lg-12">
-				<a class="btn my-1 btn-block {% if current_sorting != 'rating_desc' %}btn-light filter-hover-info border-info text-info{% else %}btn-info{% endif %}" href="{{ request.GET | update_get:'sort=rating&direction=desc' }}">
+				<a class="btn btn-sm my-1 btn-block {% if current_sorting != 'rating_desc' %}btn-light filter-hover-info border-info text-info{% else %}btn-info{% endif %}" href="{{ request.GET | update_get:'sort=rating&direction=desc' }}">
 					<span>Rating</span>
 					<span class="icon ml-1">
 						<i class="fas fa-sort-numeric-down-alt"></i>
@@ -101,7 +101,7 @@
 				</a>
 			</div>
 			<div class="col-6 col-lg-12">
-				<a class="btn my-1 btn-block {% if current_sorting != 'name_asc' %}btn-light filter-hover-info border-info text-info{% else %}btn-info{% endif %}" href="{{ request.GET | update_get:'sort=name&direction=asc' }}">
+				<a class="btn btn-sm my-1 btn-block {% if current_sorting != 'name_asc' %}btn-light filter-hover-info border-info text-info{% else %}btn-info{% endif %}" href="{{ request.GET | update_get:'sort=name&direction=asc' }}">
 					<span>Name</span>
 					<span class="icon ml-1">
 						<i class="fas fa-sort-alpha-down"></i>
@@ -109,7 +109,7 @@
 				</a>
 			</div>
 			<div class="col-6 col-lg-12">
-				<a class="btn my-1 btn-block {% if current_sorting != 'name_desc' %}btn-light filter-hover-info border-info text-info{% else %}btn-info{% endif %}" href="{{ request.GET | update_get:'sort=name&direction=desc' }}">
+				<a class="btn btn-sm my-1 btn-block {% if current_sorting != 'name_desc' %}btn-light filter-hover-info border-info text-info{% else %}btn-info{% endif %}" href="{{ request.GET | update_get:'sort=name&direction=desc' }}">
 					<span>Name</span>
 					<span class="icon ml-1">
 						<i class="fas fa-sort-alpha-down-alt"></i>
@@ -117,7 +117,7 @@
 				</a>
 			</div>
 			<div class="col-6 col-lg-12">
-				<a class="btn my-1 btn-block {% if current_sorting != 'category_asc' %}btn-light filter-hover-info border-info text-info{% else %}btn-info{% endif %}" href="{{ request.GET | update_get:'sort=category&direction=asc' }}">
+				<a class="btn btn-sm my-1 btn-block {% if current_sorting != 'category_asc' %}btn-light filter-hover-info border-info text-info{% else %}btn-info{% endif %}" href="{{ request.GET | update_get:'sort=category&direction=asc' }}">
 					<span>Category</span>
 					<span class="icon ml-1">
 						<i class="fas fa-sort-alpha-down"></i>
@@ -125,7 +125,7 @@
 				</a>
 			</div>
 			<div class="col-6 col-lg-12">
-				<a class="btn my-1 btn-block {% if current_sorting != 'category_desc' %}btn-light filter-hover-info border-info text-info{% else %}btn-info{% endif %}" href="{{ request.GET | update_get:'sort=category&direction=desc' }}">
+				<a class="btn btn-sm my-1 btn-block {% if current_sorting != 'category_desc' %}btn-light filter-hover-info border-info text-info{% else %}btn-info{% endif %}" href="{{ request.GET | update_get:'sort=category&direction=desc' }}">
 					<span>Category</span>
 					<span class="icon ml-1">
 						<i class="fas fa-sort-alpha-down-alt"></i>

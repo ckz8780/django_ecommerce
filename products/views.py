@@ -7,6 +7,7 @@ from .models import Product, Category
 from .forms import ProductForm
 
 def all_products(request):
+	# del request.session['cart']
 	products = Product.objects.all()
 	query = None
 	sort = None
