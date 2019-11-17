@@ -1,6 +1,11 @@
+html {
+    height: 100%;
+}
+
 body {
-	background: url('/media/homepage_background.jpg') no-repeat center center fixed;
+	background: url('/media/homepage_background_cropped.jpg') no-repeat center center fixed;
 	background-size: cover;
+    height: calc(100vh - 104px)
 }
 
 @media (min-width: 1200px) {
@@ -44,9 +49,9 @@ body {
 	font-weight: 700;
 }
 
-.logo-font {
+/*.logo-font {
 	font-family: 'Liu Jian Mao Cao', cursive;
-}
+}*/
 
 .homepage-title {
 	font-size: 7rem;
@@ -184,4 +189,44 @@ a.category-badge > span.badge:hover {
 .results-alert {
     width: fit-content;
     border-radius: 3px;
+}
+
+/* ---------------- For Redesign --------------- */
+
+.logo-font {
+    font-family: 'Lato';
+    text-transform: uppercase;
+}
+
+.shop-now-button {
+    background: black;
+    color: white;
+    min-width: 260px;
+}
+
+.btn-black {
+    background: black;
+    color: white;
+}
+
+.shop-now-button:hover,
+.shop-now-button:active,
+.shop-now-button:focus,
+.btn-black:hover,
+.btn-black:active,
+.btn-black:focus {
+    background: #222;
+    color: white;
+}
+
+.bg-black {
+    background: #000 !important;
+}
+
+.text-black {
+    color: #000 !important;
+}
+
+.border-black {
+    border: 1px solid black !important;
 }
