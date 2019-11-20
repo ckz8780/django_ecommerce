@@ -5,7 +5,9 @@ html {
 body {
 	background: url('/media/homepage_background_cropped.jpg') no-repeat center center fixed;
 	background-size: cover;
-    height: calc(100vh - 104px)
+    height: calc(100vh - 164px);
+    color: #555;
+    font-family: "Lato";
 }
 
 @media (min-width: 1200px) {
@@ -25,7 +27,7 @@ body {
     }
 
     .header-container {
-    	padding-top: 104px;
+    	padding-top: 164px;
     }
 }
 
@@ -196,6 +198,10 @@ a.category-badge > span.badge:hover {
 .logo-font {
     font-family: 'Lato';
     text-transform: uppercase;
+}
+
+.main-logo-link {
+    width: fit-content;
 }
 
 .shop-now-button {
