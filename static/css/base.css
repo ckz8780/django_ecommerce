@@ -36,6 +36,10 @@ body {
     .header-container {
         padding-top: 116px;
     }
+
+    body {
+        height: calc(100vh - 116px);
+    }
 }
 
 /* from Bulma */
@@ -65,7 +69,7 @@ body {
 	top: 0;
 	left: 0;
 	position: fixed;
-	background-image: linear-gradient(to top, rgba(207, 217, 223, .75) 0, rgba(226, 235, 240, .75) 100%);
+	background: white;
 	z-index: -1;
 }
 
@@ -81,7 +85,8 @@ body {
 }
 
 .read-more-link,
-.remove-item {
+.remove-item,
+.update-link {
 	cursor: pointer;
 }
 
@@ -97,7 +102,6 @@ body {
 
 /* Allauth form formatting */
 .allauth-form-inner-content h1 {
-	font-family: 'Liu Jian Mao Cao', cursive;
     font-size: 3.5rem; /* display-4 */
     font-weight: 300; /* display-4 */
     line-height: 1.2; /* display-4 */
@@ -109,7 +113,7 @@ body {
 }
 
 .allauth-form-inner-content input {
-	border-color: #17a2b8; /* text-info */
+	border-color: #000; /* text-black */
 }
 
 .allauth-form-inner-content button,
@@ -129,12 +133,12 @@ body {
     padding: .375rem .75rem;
     font-size: 1rem;
     line-height: 1.5;
-    border-radius: .25rem;
+    border-radius: 0;
 
     /* btn-info */
     color: #fff;
-    background-color: #17a2b8;
-    border-color: #17a2b8;
+    background-color: #000;
+    border-color: #000;
 
     /* standard bootstrap btn transitions */
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
@@ -143,8 +147,8 @@ body {
 .allauth-form-inner-content button:hover,
 .allauth-form-inner-content input[type='submit']:hover {	
 	color: #fff;
-    background-color: #138496;
-    border-color: #117a8b;
+    background-color: #222;
+    border-color: #222;
 }
 
 .allauth-form-inner-content a {
@@ -215,6 +219,12 @@ a.category-badge > span.badge:hover {
     color: white;
 }
 
+.btn-outline-black {
+    background: white;
+    color: black !important; /* use important to override link colors */
+    border: 1px solid black;
+}
+
 .shop-now-button:hover,
 .shop-now-button:active,
 .shop-now-button:focus,
@@ -223,6 +233,13 @@ a.category-badge > span.badge:hover {
 .btn-black:focus {
     background: #222;
     color: white;
+}
+
+.btn-outline-black:hover,
+.btn-outline-black:active,
+.btn-outline-black:focus {
+    background: black;
+    color: white !important;
 }
 
 .bg-black {

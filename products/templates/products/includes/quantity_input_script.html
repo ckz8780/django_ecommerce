@@ -1,0 +1,31 @@
+<script type="text/javascript">
+	function handleEnableDisable() {
+		var currentValue = parseInt($('#id_qty').val());
+		var minusDisabled = currentValue < 2;
+		var plusDisabled = currentValue > 98;
+		$('#decrement-qty').prop('disabled', minusDisabled);
+		$('#increment-qty').prop('disabled', plusDisabled);
+	}
+
+	handleEnableDisable();
+
+	$('#id_qty').change(function() {
+		handleEnableDisable();
+	});
+
+	$('#decrement-qty').click(function(e) {
+		e.preventDefault();
+		var currentValue = parseInt($('#id_qty').val());
+		var newVal = currentValue - 1;
+		$('#id_qty').val(newVal);
+		handleEnableDisable();
+	});
+
+	$('#increment-qty').click(function(e) {
+		e.preventDefault();
+		var currentValue = parseInt($('#id_qty').val());
+		var newVal = currentValue + 1;
+		$('#id_qty').val(newVal);
+		handleEnableDisable();
+	});
+</script>
