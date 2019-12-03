@@ -216,7 +216,7 @@ a.category-badge > span.badge:hover {
 
 .btn-outline-black {
     background: white;
-    color: black !important; /* use important to override link colors */
+    color: black !important; /* use important to override link colors for <a> elements */
     border: 1px solid black;
 }
 
@@ -247,4 +247,16 @@ a.category-badge > span.badge:hover {
 
 .border-black {
     border: 1px solid black !important;
+}
+
+.btt-button {
+    height: 42px;
+    width: 42px;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
+
+.btt-link {
+    cursor: pointer;
 }

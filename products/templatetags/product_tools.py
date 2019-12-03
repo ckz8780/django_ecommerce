@@ -15,3 +15,7 @@ def update_get(current_get, new_params):
         copied_get[param] = value
 
     return '?' + copied_get.urlencode()
+
+@register.filter(name="get_url_params")
+def get_url_params(current_get):
+    return True
