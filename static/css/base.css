@@ -109,6 +109,7 @@ body {
 
 .allauth-form-inner-content input {
 	border-color: #000; /* text-black */
+    border-radius: 0;
 }
 
 .allauth-form-inner-content button,
