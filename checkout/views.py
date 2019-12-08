@@ -110,7 +110,7 @@ def checkout_success(request, order_number):
 	)
 
 	# Empty the customer's cart
-	del request.session['cart']
+	# del request.session['cart']
 
 	template = 'checkout/checkout_success.html'
 	context = {
