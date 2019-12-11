@@ -76,6 +76,10 @@ def checkout(request):
 		else:
 			messages.error(request, 'There was an error with your form. Please double check your information.')
 	else:
+		cart = request.session.get('cart', {})
+		if not cart:
+			messages.error(request, f"You don't have anything in your bag at the moment. Try adding some products before checking out.")
+			return redirect('products')
 		order_form = OrderForm()
 
 	stripe_public_key = settings.STRIPE_PUBLIC_KEY

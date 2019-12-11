@@ -84,6 +84,8 @@ def remove_from_cart(request, item_id):
             size = request.POST['size']
         if size:
             del cart[item_id]['items_by_size'][size]
+            if not cart[item_id]['items_by_size']:
+                cart.pop(item_id)
             messages.success(request, f'Removed size {size.upper()} {product.name} from your bag')
         else:
             cart.pop(item_id)
