@@ -15,14 +15,45 @@
 <div class="overlay"></div>
 <div class="container-fluid">
 	<div class="row">
-		{% include "products/includes/sidebar.html" %}
-		<div class="product-container col-12 col-lg-9 col-xl-10">
+		<div class="col text-center mt-3">
+			<h2 class="logo-font">Products</h2>
+			{% for c in current_categories %}
+				<a class="category-badge" href="{% url 'products' %}?category={{ c.name }}"><span class="p-2 mt-2 badge badge-white text-black rounded-0 border border-dark">{{ c.friendly_name }}</span></a>
+			{% endfor %}
+			<hr class="w-50 mb-1">
+		</div>
+	</div>
+	<div class="row">
+		<div class="product-container col-10 offset-1">
+			<div class="row mt-1 mb-2">
+				<div class="col-12 col-md-6 my-auto order-md-12 d-flex justify-content-center justify-content-md-end">
+					<div class="sort-select-wrapper w-50">
+						<select id="sort-selector" class="custom-select custom-select-sm rounded-0 border border-{% if current_sorting != 'None_None' %}info{% else %}black{% endif %}">
+							<option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
+							<option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>Price (low to high)</option>
+							<option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price (high to low)</option>
+							<option value="rating_asc" {% if current_sorting == 'rating_asc' %}selected{% endif %}>Rating (low to high)</option>
+							<option value="rating_desc" {% if current_sorting == 'rating_desc' %}selected{% endif %}>Rating (high to low)</option>
+							<option value="name_asc" {% if current_sorting == 'name_asc' %}selected{% endif %}>Name (A-Z)</option>
+							<option value="name_desc" {% if current_sorting == 'name_desc' %}selected{% endif %}>Name (Z-A)</option>
+							<option value="category_asc" {% if current_sorting == 'category_asc' %}selected{% endif %}>Category (A-Z)</option>
+							<option value="category_desc" {% if current_sorting == 'category_desc' %}selected{% endif %}>Category (Z-A)</option>
+						</select>
+					</div>
+				</div>
+				<div class="col-12 col-md-6 order-md-1">
+					<p class="text-muted mt-3 text-center text-md-left">
+						{% if search_term or current_categories or current_sorting != 'None_None' %}<span class="small"><a href="{% url 'products' %}">Products Home</a> | </span>{% endif %}
+						{{ products|length }} Products{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %}
+					</p>
+				</div>
+			</div>			
 			<div class="row">
 				{% for product in products %}
-					<div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-3">
-						<div class="card h-100 shadow">
+					<div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
+						<div class="card h-100 border-0">
 							{% if product.image %}
-							<a href="{{ product.image.url }}" target="_blank">
+							<a href="{% url 'product_detail' product.id %}">
 								<img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
 							</a>
 							{% else %}
@@ -30,72 +61,65 @@
 								<img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
 							</a>
 							{% endif %}
-							<div class="card-body">
-								<h5 class="card-title">{{ product.name }}</h5>
-								<div class="desc-container">
-									<small class="card-text text-muted">{{ product.description }}</small>
-								</div>
-								<small class="nav-link p-0 read-more-link">Read More</small>
+							<div class="card-body pb-0">
+								<p class="mb-0">{{ product.name }}</p>
 							</div>
-							<div class="product-rating">
-								{% if product.rating %}
-									<small class="text-muted">{{ product.rating }} / 5</small>
-								{% else %}
-									<small class="text-muted">No Rating</small>
-								{% endif %}
-							</div>
-							<div class="card-footer text-left">
+							<div class="card-footer bg-white pt-0 border-0 text-left">
 								<div class="row">
 									<div class="col">
-										<p class="lead text-left font-weight-bold">${{ product.price }}</p>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col justify-content-center">						
-										<form class="form" action="{% url 'add_to_cart' product.id %}" method="POST">
-											{% csrf_token %}
-											<div class="form-row">
-												{% with product.has_sizes as s %}
-												<div class="col{% if s %}-6{% endif %}">
-													<input class="form-control form-control-sm" type="number" name="quantity" value="1" min="1" max="99" id='id_qty'>
-												</div>
-												{% if s %}
-												<div class="col-6">
-													<select class="form-control form-control-sm" name="product_size" id='id_product_size'>
-														<option value="xs">XS</option>
-														<option value="s">S</option>
-														<option value="m" selected>M</option>
-														<option value="l">L</option>
-														<option value="xl">XL</option>
-													</select>
-												</div>
-												{% endif %}
-												<div class="col{% if s %}-12 mt-2{% endif %}">
-													<input type="submit" class="form-control form-control-sm btn btn-sm btn-success" value="Add to Cart!">
-												</div>
-												<input type="hidden" name="redirect_url" value="{{ request.build_absolute_uri }}">
-												{% endwith %}
-											</div>
-										</form>
-										<small class="d-block mt-3">See more <a href="{% url 'products' %}?category={{ product.category.name }}">{{ product.category.friendly_name }}</a></small>
+										<p class="lead mb-0 text-left font-weight-bold">${{ product.price }}</p>
+										{% if product.rating %}
+											<small class="text-muted"><i class="fas fa-star mr-1"></i>{{ product.rating }} / 5</small>
+										{% else %}
+											<small class="text-muted">No Rating</small>
+										{% endif %}
 										{% if request.user.is_superuser %}
-										<small class="d-block"><a href="{% url 'edit_product' product.id %}">Edit Product</a></small>
-										<small class="d-block"><a class="text-danger" href="{% url 'delete_product' product.id %}">Delete Product</a></small>
+											<small class="ml-3"><a href="{% url 'edit_product' product.id %}">Edit</a> | <a class="text-danger" href="{% url 'delete_product' product.id %}">Delete</a></small>
 										{% endif %}
 									</div>
-								</div>						
+								</div>
 							</div>
 						</div>
 					</div>
+					{% if forloop.counter|divisibleby:1 %}
+					<div class="col-12 d-block d-sm-none mb-5">
+						<hr>
+					</div>
+					{% endif %}
+					{% if forloop.counter|divisibleby:2 %}
+					<div class="col-12 d-none d-sm-block d-md-block d-lg-none mb-5">
+						<hr>
+					</div>
+					{% endif %}
+					{% if forloop.counter|divisibleby:3 %}
+					<div class="col-12 d-none d-lg-block d-xl-none mb-5">
+						<hr>
+					</div>
+					{% endif %}
+					{% if forloop.counter|divisibleby:4 %}
+					<div class="col-12 d-none d-xl-block mb-5">
+						<hr>
+					</div>
+					{% endif %}
 				{% endfor %}
 			</div>
 		</div>
 	</div>
 </div>
+<div class="btt-button shadow-sm rounded-0 border border-black">
+	<a class="btt-link d-flex h-100">
+		<i class="fas fa-arrow-up text-black mx-auto my-auto"></i>
+	</a>	
+</div>
 {% endblock %}
 
 {% block postloadjs %}
 	{{ block.super }}
+	<script type="text/javascript">
+		$('.btt-link').click(function(e) {
+			window.scrollTo(0,0)
+		})
+	</script>
 	<script type="text/javascript">
 		$('.read-more-link').click(function() {
 			var descContainer = $(this).closest('.card-body').find('.desc-container')[0];
@@ -107,6 +131,34 @@
 				$(descContainer).css('max-height', '1000px');
 				$(descContainer).addClass('expanded');
 				$(this).text('Read Less')
+			}
+		})
+	</script>
+
+	<!-- Sort Selector -->
+	<script type="text/javascript">
+		$('#sort-selector').change(function() {
+			// Get selector and current URL
+			var selector = $(this);
+			var currentUrl = new URL(window.location);
+
+			// Get selected value (e.g. price_asc, rating_desc, etc)
+			var selectedVal = selector.val();
+			if(selectedVal != "reset"){
+				var sort = selectedVal.split("_")[0];
+				var direction = selectedVal.split("_")[1];
+
+				// Replace GET params
+				currentUrl.searchParams.set("sort", sort);
+				currentUrl.searchParams.set("direction", direction);
+
+				// Replace URL and reload
+				window.location.replace(currentUrl);
+			} else {
+				// If user selects "Sort by...", reset sorting
+				currentUrl.searchParams.delete("sort");
+				currentUrl.searchParams.delete("direction");
+				window.location.replace(currentUrl);
 			}
 		})
 	</script>

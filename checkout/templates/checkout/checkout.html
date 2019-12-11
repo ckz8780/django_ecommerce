@@ -16,10 +16,13 @@
 {% endblock %}
 
 {% block content %}
+	<div class="overlay"></div>
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<h1 class="display-4 logo-font mb-4">Checkout</h1>
+				<hr>
+				<h2 class="logo-font mb-4">Checkout</h2>
+				<hr>
 				<p class="text-muted">Please fill out the form below to complete your order</p>
 			</div>
 		</div>
@@ -28,13 +31,22 @@
 				<form action="{% url 'checkout' %}" method="post" id="payment-form">
 					{% csrf_token %}
 					<fieldset class="rounded px-3 fieldset-background mb-5">
-						<legend class="fieldset-label small text-info px-2 w-auto">Shipping Information</legend>
-						{% for field in order_form %}
-							{{ field | as_crispy_field }}
-						{% endfor %}
+						<legend class="fieldset-label small text-black px-2 w-auto">Details</legend>
+						{{ order_form.full_name | as_crispy_field }}
+						{{ order_form.email | as_crispy_field }}
 					</fieldset>
-					<fieldset class="rounded px-3 fieldset-background">
-						<legend class="fieldset-label small text-info px-2 w-auto">Billing Information</legend>
+					<fieldset class="rounded px-3 fieldset-background mb-5">
+						<legend class="fieldset-label small text-black px-2 w-auto">Delivery</legend>
+						{{ order_form.phone_number | as_crispy_field }}
+						{{ order_form.country | as_crispy_field }}
+						{{ order_form.postcode | as_crispy_field }}
+						{{ order_form.town_or_city | as_crispy_field }}
+						{{ order_form.street_address1 | as_crispy_field }}
+						{{ order_form.street_address2 | as_crispy_field }}
+						{{ order_form.county | as_crispy_field }}
+					</fieldset>
+					<fieldset class="px-3 fieldset-background">
+						<legend class="fieldset-label small text-black px-2 w-auto">Payment</legend>
 						<div>
 							<div class="mb-3" id="card-element">
 							<!-- A Stripe Element will be inserted here. -->
@@ -46,16 +58,16 @@
 					</fieldset>
 
 					<div class="submit-button text-right mt-5 mb-2">
-						<a href="{% url 'view_cart' %}" class="btn btn-dark">
+						<a href="{% url 'view_cart' %}" class="btn btn-outline-black rounded-0">
 							<span class="icon mr-2">
 								<i class="fas fa-arrow-left"></i>
 							</span>
 							<span class="font-weight-bold">Adjust Cart</span>
 						</a>
-						<button id="submit-button" class="btn btn-info">
+						<button id="submit-button" class="btn btn-black rounded-0">
 							<span class="font-weight-bold">Complete Order</span>
 							<span class="icon ml-2">
-								<i class="fas fa-check"></i>
+								<i class="fas fa-lock"></i>
 							</span>
 						</button>
 						<p class="small text-danger my-0">
@@ -86,7 +98,7 @@
 
 		var style = {
 			base: {
-				color: '#17a2b8',
+				color: '#000',
 				fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
 				fontSmoothing: 'antialiased',
 				fontSize: '16px',

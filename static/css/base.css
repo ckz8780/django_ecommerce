@@ -1,34 +1,13 @@
+html {
+    height: 100%;
+}
+
 body {
-	background: url('/media/homepage_background.jpg') no-repeat center center fixed;
+	background: url('/media/homepage_background_cropped.jpg') no-repeat center center fixed;
 	background-size: cover;
-}
-
-@media (min-width: 1200px) {
-  .container {
-    max-width: 80%;
-  }
-}
-
-/* fixed top navbar only on medium and up */
-@media (min-width: 992px) {
-    .fixed-top-desktop-only {
-        position: fixed;
-        top: 0;
-        right: 0;
-        left: 0;
-        z-index: 1030;
-    }
-
-    .header-container {
-    	padding-top: 104px;
-    }
-}
-
-/* pad the top a bit when navbar is collapsed on mobile */
-@media (max-width: 991px) {
-    .header-container {
-        padding-top: 10px;
-    }
+    height: calc(100vh - 164px);
+    color: #555;
+    font-family: "Lato";
 }
 
 /* from Bulma */
@@ -44,10 +23,6 @@ body {
 	font-weight: 700;
 }
 
-.logo-font {
-	font-family: 'Liu Jian Mao Cao', cursive;
-}
-
 .homepage-title {
 	font-size: 7rem;
 }
@@ -58,7 +33,7 @@ body {
 	top: 0;
 	left: 0;
 	position: fixed;
-	background-image: linear-gradient(to top, rgba(207, 217, 223, .75) 0, rgba(226, 235, 240, .75) 100%);
+	background: white;
 	z-index: -1;
 }
 
@@ -74,27 +49,77 @@ body {
 }
 
 .read-more-link,
-.remove-item {
+.remove-item,
+.update-link {
 	cursor: pointer;
 }
 
 
 /* Bootstrap Toasts */
+
+.custom-toast {
+    overflow: visible;
+}
+
 .message-container {
     position: fixed;
-    top: 1rem;
-    right: 1rem;
+    top: 72px;
+    right: 15px; /* matches container padding */
     z-index: 99999999999;
+}
+
+.toast-capper {
+    height: 2px;
+}
+
+
+/* from CSS-tricks.com: https://css-tricks.com/snippets/css/css-triangle/ */
+.arrow-up {
+    width: 0; 
+    height: 0; 
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent; 
+    border-bottom: 10px solid black;
+    position: absolute;
+    top: -10px;
+    right: 36px;
+}
+
+/* Convenience classes - colors copied from Bootstrap */
+.arrow-primary {
+    border-bottom-color: #007bff !important;
+}
+
+.arrow-secondary {
+    border-bottom-color: #6c757d !important;
+}
+
+.arrow-success {
+    border-bottom-color: #28a745 !important;
+}
+
+.arrow-danger {
+    border-bottom-color: #dc3545 !important;
+}
+
+.arrow-warning {
+    border-bottom-color: #ffc107 !important;
+}
+
+.arrow-info {
+    border-bottom-color: #17a2b8 !important;
+}
+
+.arrow-light {
+    border-bottom-color: #f8f9fa !important;
+}
+
+.arrow-dark {
+    border-bottom-color: #343a40 !important;
 }
 
 
 /* Allauth form formatting */
-.allauth-form-inner-content h1 {
-	font-family: 'Liu Jian Mao Cao', cursive;
-    font-size: 3.5rem; /* display-4 */
-    font-weight: 300; /* display-4 */
-    line-height: 1.2; /* display-4 */
-}
 
 .allauth-form-inner-content p {
 	margin-top: 1.5rem; /* mt-4 */
@@ -102,7 +127,8 @@ body {
 }
 
 .allauth-form-inner-content input {
-	border-color: #17a2b8; /* text-info */
+	border-color: #000; /* text-black */
+    border-radius: 0;
 }
 
 .allauth-form-inner-content button,
@@ -122,12 +148,12 @@ body {
     padding: .375rem .75rem;
     font-size: 1rem;
     line-height: 1.5;
-    border-radius: .25rem;
+    border-radius: 0;
 
     /* btn-info */
     color: #fff;
-    background-color: #17a2b8;
-    border-color: #17a2b8;
+    background-color: #000;
+    border-color: #000;
 
     /* standard bootstrap btn transitions */
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
@@ -136,8 +162,8 @@ body {
 .allauth-form-inner-content button:hover,
 .allauth-form-inner-content input[type='submit']:hover {	
 	color: #fff;
-    background-color: #138496;
-    border-color: #117a8b;
+    background-color: #222;
+    border-color: #222;
 }
 
 .allauth-form-inner-content a {
@@ -184,4 +210,116 @@ a.category-badge > span.badge:hover {
 .results-alert {
     width: fit-content;
     border-radius: 3px;
+}
+
+/* ---------------- For Redesign --------------- */
+
+.logo-font {
+    font-family: 'Lato';
+    text-transform: uppercase;
+}
+
+.main-logo-link {
+    width: fit-content;
+}
+
+.shop-now-button {
+    background: black;
+    color: white;
+    min-width: 260px;
+}
+
+.btn-black {
+    background: black;
+    color: white;
+}
+
+.btn-outline-black {
+    background: white;
+    color: black !important; /* use important to override link colors for <a> elements */
+    border: 1px solid black;
+}
+
+.shop-now-button:hover,
+.shop-now-button:active,
+.shop-now-button:focus,
+.btn-black:hover,
+.btn-black:active,
+.btn-black:focus {
+    background: #222;
+    color: white;
+}
+
+.btn-outline-black:hover,
+.btn-outline-black:active,
+.btn-outline-black:focus {
+    background: black;
+    color: white !important;
+}
+
+.bg-black {
+    background: #000 !important;
+}
+
+.text-black {
+    color: #000 !important;
+}
+
+.border-black {
+    border: 1px solid black !important;
+}
+
+.btt-button {
+    height: 42px;
+    width: 42px;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
+
+.btt-link {
+    cursor: pointer;
+}
+
+.bag-notification-wrapper {
+    max-height: 100px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* Media queries */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 80%;
+  }
+}
+
+/* fixed top navbar only on medium and up */
+@media (min-width: 992px) {
+    .fixed-top-desktop-only {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 1030;
+    }
+
+    .header-container {
+        padding-top: 164px;
+    }
+}
+
+/* pad the top a bit when navbar is collapsed on mobile */
+@media (max-width: 991px) {
+    .header-container {
+        padding-top: 116px;
+    }
+
+    .arrow-up {
+        right: 46px;
+    }
+
+    body {
+        height: calc(100vh - 116px);
+    }
 }

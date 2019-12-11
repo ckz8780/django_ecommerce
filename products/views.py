@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.db.models import Q
 from django.db.models.functions import Lower
@@ -7,7 +7,6 @@ from .models import Product, Category
 from .forms import ProductForm
 
 def all_products(request):
-	# del request.session['cart']
 	products = Product.objects.all()
 	query = None
 	sort = None
@@ -56,6 +55,14 @@ def all_products(request):
 	return render(request, 'products/products.html', context)
 
 
+def product_detail(request, product_id):
+	# del request.session['cart']
+	product = get_object_or_404(Product, pk=product_id)
+	context = {'product': product}
+
+	return render(request, 'products/product_detail.html', context)
+
+
 def add_product(request):
 	
 	if request.method == 'POST':
@@ -83,7 +90,7 @@ def edit_product(request, product_id):
 
 	if request.user.is_superuser:
 		if request.method == 'POST':
-			product = Product.objects.get(id=product_id)
+			product = Product.objects.get(pk=product_id)
 			form = ProductForm(request.POST, request.FILES, instance=product)
 			if form.is_valid():
 				form.save()
@@ -94,7 +101,7 @@ def edit_product(request, product_id):
 				return redirect(reverse('edit_product', args=[product.id]))
 		else:
 			try:
-				product = Product.objects.get(id=product_id)
+				product = Product.objects.get(pk=product_id)
 				form = ProductForm(instance=product)
 				messages.info(request, f'You are editing {product.name}')
 
@@ -116,7 +123,7 @@ def edit_product(request, product_id):
 def delete_product(request, product_id):
 	if request.user.is_superuser:
 		try:
-			Product.objects.get(id=product_id).delete()
+			Product.objects.get(pk=product_id).delete()
 			messages.success(request, 'Product deleted!')
 			return redirect(reverse('products'))
 

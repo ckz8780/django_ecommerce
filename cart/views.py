@@ -30,10 +30,10 @@ def add_to_cart(request, item_id):
                 messages.success(request, f'Updated size {size.upper()} {product.name} quantity to {cart[item_id]["items_by_size"][size]}')
             else:
                 cart[item_id]['items_by_size'][size] = quantity
-                messages.success(request, f'Added size {size.upper()} {product.name} to your cart')
+                messages.success(request, f'Added size {size.upper()} {product.name} to your bag')
         else:
             cart[item_id] = {'items_by_size': {size: quantity}}
-            messages.success(request, f'Added size {size.upper()} {product.name} to your cart')
+            messages.success(request, f'Added size {size.upper()} {product.name} to your bag')
     # Otherwise organize only by item_id
     else:
         if item_id in list(cart.keys()):
@@ -41,7 +41,7 @@ def add_to_cart(request, item_id):
             messages.success(request, f'Updated {product.name} quantity to {cart[item_id]}')
         else:
             cart[item_id] = quantity
-            messages.success(request, f'Added {product.name} to your cart')
+            messages.success(request, f'Added {product.name} to your bag')
 
     request.session['cart'] = cart
     return redirect(redirect_url)
@@ -62,14 +62,14 @@ def adjust_cart(request, item_id):
             messages.success(request, f'Updated size {size.upper()} {product.name} quantity to {cart[item_id]["items_by_size"][size]}')
         else:
             del cart[item_id]['items_by_size'][size]
-            messages.success(request, f'Removed size {size.upper()} {product.name} from your cart')
+            messages.success(request, f'Removed size {size.upper()} {product.name} from your bag')
     else:
         if quantity > 0:
             cart[item_id] = quantity
             messages.success(request, f'Updated {product.name} quantity to {cart[item_id]}')
         else:
             cart.pop(item_id)
-            messages.success(request, f'Removed {product.name} from your cart')
+            messages.success(request, f'Removed {product.name} from your bag')
         
     request.session['cart'] = cart
     return redirect(reverse('view_cart'))
@@ -84,10 +84,12 @@ def remove_from_cart(request, item_id):
             size = request.POST['size']
         if size:
             del cart[item_id]['items_by_size'][size]
-            messages.success(request, f'Removed size {size.upper()} {product.name} from your cart')
+            if not cart[item_id]['items_by_size']:
+                cart.pop(item_id)
+            messages.success(request, f'Removed size {size.upper()} {product.name} from your bag')
         else:
             cart.pop(item_id)
-            messages.success(request, f'Removed {product.name} from your cart')
+            messages.success(request, f'Removed {product.name} from your bag')
 
         request.session['cart'] = cart        
         return HttpResponse(status=200)
