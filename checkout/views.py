@@ -76,20 +76,23 @@ def checkout(request):
 			messages.error(request, f"You don't have anything in your bag at the moment. Try adding some products before checking out.")
 			return redirect('products')
 		# Attempt to prefill the form with any info the user maintains in their profile
-		try:
-			profile = UserProfile.objects.get(user=request.user)
-			order_form = OrderForm(initial={
-				'full_name': profile.user.get_full_name(),
-				'email': profile.user.email,
-				'phone_number': profile.default_phone_number,
-				'country': profile.default_country,
-				'postcode': profile.default_postcode,
-				'town_or_city': profile.default_town_or_city,
-				'street_address1': profile.default_street_address1,
-				'street_address2': profile.default_street_address2,
-				'county': profile.default_county,
-			})
-		except UserProfile.DoesNotExist:
+		if request.user.is_authenticated:
+			try:
+				profile = UserProfile.objects.get(user=request.user)
+				order_form = OrderForm(initial={
+					'full_name': profile.user.get_full_name(),
+					'email': profile.user.email,
+					'phone_number': profile.default_phone_number,
+					'country': profile.default_country,
+					'postcode': profile.default_postcode,
+					'town_or_city': profile.default_town_or_city,
+					'street_address1': profile.default_street_address1,
+					'street_address2': profile.default_street_address2,
+					'county': profile.default_county,
+				})
+			except UserProfile.DoesNotExist:
+				order_form = OrderForm()
+		else:
 			order_form = OrderForm()
 
 	stripe_public_key = settings.STRIPE_PUBLIC_KEY
@@ -115,53 +118,54 @@ def checkout_success(request, order_number):
 
 	# Attach the order to the user's profile
 	# Handle issues w/ appropriate warnings
-	try:
-		user_profile = UserProfile.objects.get(user=request.user)
+	if request.user.is_authenticated:
+		try:
+			user_profile = UserProfile.objects.get(user=request.user)
 
-		# User the standard UserProfileForm to save to profile
-		if save_info:
-			form_data = {
-				'default_phone_number': order.phone_number,
-				'default_country': order.country,
-				'default_postcode': order.postcode,
-				'default_town_or_city': order.town_or_city,
-				'default_street_address1': order.street_address1,
-				'default_street_address2': order.street_address2,
-				'default_county': order.county,
-			}
-			user_profile_form = UserProfileForm(form_data, instance=user_profile)
-			if user_profile_form.is_valid():
-				user_profile_form.save()
-			else:
+			# User the standard UserProfileForm to save to profile
+			if save_info:
+				form_data = {
+					'default_phone_number': order.phone_number,
+					'default_country': order.country,
+					'default_postcode': order.postcode,
+					'default_town_or_city': order.town_or_city,
+					'default_street_address1': order.street_address1,
+					'default_street_address2': order.street_address2,
+					'default_county': order.county,
+				}
+				user_profile_form = UserProfileForm(form_data, instance=user_profile)
+				if user_profile_form.is_valid():
+					user_profile_form.save()
+				else:
+					no_errors = False
+					messages.warning(request, (
+						f'Your order was successfully processed, but your information '
+						f'could not be saved to your profile. Please try adding it '
+						f'manually on your profile page. Your order number is {order_number}. '
+						f'A confirmation email has been sent to {order.email}.')
+					)
+			# Now attempt to attach the order to the user's profile
+			try:
+				order.user_profile = user_profile
+				order.save()
+			except:
 				no_errors = False
 				messages.warning(request, (
-					f'Your order was successfully processed, but your information '
-					f'could not be saved to your profile. Please try adding it '
-					f'manually on your profile page. Your order number is {order_number}. '
+					f'Your order was successfully processed, but you may not see this '
+					f'order in your order history in your profile due to an error attaching '
+					f'the order to your profile. Please contact us for any assistance '
+					f'needed with this order. Your order number is {order_number}. '
 					f'A confirmation email has been sent to {order.email}.')
 				)
-		# Now attempt to attach the order to the user's profile
-		try:
-			order.user_profile = user_profile
-			order.save()
-		except:
+		except UserProfile.DoesNotExist:
 			no_errors = False
 			messages.warning(request, (
-				f'Your order was successfully processed, but you may not see this '
-				f'order in your order history in your profile due to an error attaching '
-				f'the order to your profile. Please contact us for any assistance '
-				f'needed with this order. Your order number is {order_number}. '
+				f'Your order was successfully processed, but your information '
+				f'could not be saved to your profile because your profile was '
+				f'not found. Please contact us if you would like to save your '
+				f'information for future orders. Your order number is {order_number}. '
 				f'A confirmation email has been sent to {order.email}.')
 			)
-	except UserProfile.DoesNotExist:
-		no_errors = False
-		messages.warning(request, (
-			f'Your order was successfully processed, but your information '
-			f'could not be saved to your profile because your profile was '
-			f'not found. Please contact us if you would like to save your '
-			f'information for future orders. Your order number is {order_number}. '
-			f'A confirmation email has been sent to {order.email}.')
-		)
 
 	# If there were no issues, provide a standard success message
 	if no_errors:
