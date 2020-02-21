@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, HttpResponse
 from django.conf import settings
 from django.contrib import messages
 from django.core.mail import send_mail
@@ -12,7 +12,7 @@ from products.models import Product
 from profiles.models import UserProfile
 from profiles.forms import UserProfileForm
 
-import stripe
+import stripe, json
 
 
 def get_cart_total(cart):
@@ -35,6 +35,20 @@ def get_cart_total(cart):
     grand_total = shipping + total
 
     return grand_total
+
+
+def cache_checkout_data(request):
+    pid = request.POST.get('client_secret').split('_secret')[0]
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    try:
+        stripe.PaymentIntent.modify(pid, metadata={
+            'cart': json.dumps(request.session.get('cart')),
+            'save_info': request.POST.get('save_info'),
+        })
+        return HttpResponse(status=200)
+    except Exception as e:
+        messages.error(request, f'Sorry, your payment cannot be processed right now. Please try again later.')
+        return HttpResponse(content=e, status=400)
 
 
 def checkout(request):

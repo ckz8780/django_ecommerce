@@ -38,12 +38,12 @@
                     <fieldset class="rounded px-3 fieldset-background mb-5">
                         <legend class="fieldset-label small text-black px-2 w-auto">Delivery</legend>
                         {{ order_form.phone_number | as_crispy_field }}
-                        {{ order_form.country | as_crispy_field }}
-                        {{ order_form.postcode | as_crispy_field }}
-                        {{ order_form.town_or_city | as_crispy_field }}
                         {{ order_form.street_address1 | as_crispy_field }}
                         {{ order_form.street_address2 | as_crispy_field }}
+                        {{ order_form.town_or_city | as_crispy_field }}
                         {{ order_form.county | as_crispy_field }}
+                        {{ order_form.postcode | as_crispy_field }}
+                        {{ order_form.country | as_crispy_field }}
                         <div class="form-check form-check-inline float-right mr-0">
                             {% if user.is_authenticated %}
                                 <label class="form-check-label" for="id-save-info">Save this delivery information to my profile</label>
@@ -153,37 +153,58 @@
             $('#payment-form').fadeToggle(100)
             $('#loading-overlay').fadeToggle(100)
 
-            stripe.confirmCardPayment('{{ client_secret }}', {
-                payment_method: {
-                    card: card
-                }
-            }).then(function(result) {
-                if (result.error) {
-                    // Inform the user if there was an error.
-                    var errorDiv = document.getElementById('card-errors');
-                    var html = `
-                        <span class="icon" role="alert">
-                            <i class="fas fa-times"></i>
-                        </span>
-                        <span>${result.error.message}</span>
-                    `
-                    $(errorDiv).html(html);
-                    $('#loading-overlay').fadeToggle(100)
-                    $('#payment-form').fadeToggle(100)
-                    card.update({'disabled': false});
-                    $('#submit-button').attr('disabled', false);
-                } else {
-                    // The payment has been processed!
-                    if (result.paymentIntent.status === 'succeeded') {
-                        form.submit();
-                    // Show a success message to your customer
-                    // There's a risk of the customer closing the window before callback
-                    // execution. Set up a webhook or plugin to listen for the
-                    // payment_intent.succeeded event that handles any business critical
-                    // post-payment actions.
+            var save_info = Boolean($('#id-save-info').attr('checked'));
+            var metadata = {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'client_secret': '{{ client_secret }}',
+                'save_info': save_info,
+            };
+            var url = '/checkout/cache_checkout_data/';
+
+            $.post(url, metadata).done(function(){
+                stripe.confirmCardPayment('{{ client_secret }}', {
+                    payment_method: {
+                        card: card,
+                        billing_details: {
+                            name: form.full_name.value,
+                            phone: form.phone_number.value,
+                            email: form.email.value,
+                            address: {
+                                line1: form.street_address1.value,
+                                line2: form.street_address2.value,
+                                city: form.town_or_city.value,
+                                country: form.country.value,
+                                postal_code: form.postcode.value,
+                                state: form.county.value,
+                            }
+                        },
+                    },
+                }).then(function(result) {
+                    if (result.error) {
+                        // Inform the user if there was an error.
+                        var errorDiv = document.getElementById('card-errors');
+                        var html = `
+                            <span class="icon" role="alert">
+                                <i class="fas fa-times"></i>
+                            </span>
+                            <span>${result.error.message}</span>
+                        `
+                        $(errorDiv).html(html);
+                        $('#loading-overlay').fadeToggle(100)
+                        $('#payment-form').fadeToggle(100)
+                        card.update({'disabled': false});
+                        $('#submit-button').attr('disabled', false);
+                    } else {
+                        // The payment has been processed!
+                        if (result.paymentIntent.status === 'succeeded') {
+                            form.submit();
+                        }
                     }
-                }
-            });
+                });
+            }).fail(function() {
+                // Just reload the page, the error will be in Django messages
+                location.reload();
+            })
         });
         // form.addEventListener('submit', function(event) {
 
