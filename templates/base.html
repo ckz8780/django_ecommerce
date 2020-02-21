@@ -42,7 +42,7 @@
     {% block extra_js%}
     {% endblock %}
 
-    <title>Boutique Ado</title>
+    <title>Boutique Ado{% block extra_title %}{% endblock %}</title>
 </head>
 <body>
     <header class="container-fluid fixed-top">
@@ -55,7 +55,7 @@
             <div class="my-auto col-12 col-lg-4 py-1 py-lg-0">
                 <form class="form-inline" method="GET" action="{% url 'products' %}">
                     <div class="input-group w-100">
-                        <input class="form-control border border-black rounded-0" type="text" name="q" placeholder="Search our site" id="id_q_sidebar">
+                        <input class="form-control border border-black rounded-0" type="text" name="q" placeholder="Search our site">
                         <div class="input-group-append">
                             <button class="form-control form-control btn btn-black border border-black rounded-0" type="submit">
                                 <span class="icon">
@@ -120,7 +120,7 @@
                     <div class="dropdown-menu border-0 w-100 p-3 rounded-0 mobile-search-dropdown my-0" aria-labelledby="mobile-search">
                         <form class="form" method="GET" action="{% url 'products' %}">
                             <div class="input-group w-100">
-                                <input class="form-control border border-black rounded-0" type="text" name="q" placeholder="Search our site" id="id_q_sidebar">
+                                <input class="form-control border border-black rounded-0" type="text" name="q" placeholder="Search our site">
                                 <div class="input-group-append">
                                     <button class="form-control form-control btn btn-black border border-black rounded-0" type="submit">
                                         <span class="icon">
@@ -225,9 +225,6 @@
             </div>            
         </div>
     </header>
-    {% block nav %}
-        
-    {% endblock %}
     {% if messages %}
         <div class="message-container">
             {% for message in messages %}

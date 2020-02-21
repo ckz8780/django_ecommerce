@@ -75,7 +75,7 @@ def adjust_cart(request, item_id):
     return redirect(reverse('view_cart'))
 
 def remove_from_cart(request, item_id):
-    """Set the quantity of the give item to 0"""
+    """Set the quantity of the given item to 0"""
     try:
         cart = request.session.get('cart', {})
         product = Product.objects.get(id=item_id)

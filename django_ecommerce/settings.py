@@ -24,7 +24,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SECRET_KEY', 'dummy')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False if not os.environ.get('DJANGO_DEBUG') else os.environ.get('DJANGO_DEBUG').lower() == 'true'
+# DEBUG = False if not os.environ.get('DJANGO_DEBUG') else os.environ.get('DJANGO_DEBUG').lower() == 'true'
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'boutique-ado.herokuapp.com']
 
@@ -204,6 +205,8 @@ SITE_ID = 1
 
 FREE_SHIPPING_THRESHOLD = 50
 STANDARD_SHIPPING_PERCENTAGE = 10
+STRIPE_CURRENCY = 'usd' # Used for payment intents during checkout
+
 STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
 
