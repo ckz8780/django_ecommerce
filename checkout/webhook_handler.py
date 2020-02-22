@@ -2,9 +2,7 @@
 Handles Stripe webhooks
 """
 from django.http import HttpResponse
-
 from datetime import datetime
-
 import stripe
 
 
