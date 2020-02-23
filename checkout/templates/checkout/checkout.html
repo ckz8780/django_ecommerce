@@ -110,6 +110,9 @@
 
                             <!-- Used to display form errors. -->
                             <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
+
+                            <!-- Pass the stripe client_secret along to be added to the order -->
+                            <input type="hidden" value="{{ client_secret }}" name="client_secret">
                         </div>
                     </fieldset>
 
@@ -212,18 +215,29 @@
                     payment_method: {
                         card: card,
                         billing_details: {
-                            name: form.full_name.value,
-                            phone: form.phone_number.value,
-                            email: form.email.value,
+                            name: $.trim(form.full_name.value),
+                            phone: $.trim(form.phone_number.value),
+                            email: $.trim(form.email.value),
                             address: {
-                                line1: form.street_address1.value,
-                                line2: form.street_address2.value,
-                                city: form.town_or_city.value,
-                                country: form.country.value,
-                                postal_code: form.postcode.value,
-                                state: form.county.value,
+                                line1: $.trim(form.street_address1.value),
+                                line2: $.trim(form.street_address2.value),
+                                city: $.trim(form.town_or_city.value),
+                                country: $.trim(form.country.value),
+                                state: $.trim(form.county.value),
                             }
                         },
+                    },
+                    shipping: {
+                        name: $.trim(form.full_name.value),
+                        phone: $.trim(form.phone_number.value),
+                        address: {
+                            line1: $.trim(form.street_address1.value),
+                            line2: $.trim(form.street_address2.value),
+                            city: $.trim(form.town_or_city.value),
+                            country: $.trim(form.country.value),
+                            postal_code: $.trim(form.postcode.value),
+                            state: $.trim(form.county.value),
+                        }
                     },
                 }).then(function(result) {
                     if (result.error) {

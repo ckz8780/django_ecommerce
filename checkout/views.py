@@ -44,6 +44,7 @@ def cache_checkout_data(request):
         stripe.PaymentIntent.modify(pid, metadata={
             'cart': json.dumps(request.session.get('cart')),
             'save_info': request.POST.get('save_info'),
+            'username': request.user,
         })
         return HttpResponse(status=200)
     except Exception as e:
@@ -71,6 +72,10 @@ def checkout(request):
         order_form = OrderForm(form_data)
         if order_form.is_valid():
             order = order_form.save()
+            pid = request.POST.get('client_secret').split('_secret')[0]
+            order.original_cart = json.dumps(cart)
+            order.stripe_pid = pid
+            order.save()
             for item_id, item_data in cart.items():
                 try:
                     product = Product.objects.get(id=item_id)
@@ -99,10 +104,6 @@ def checkout(request):
                     )
                     order.delete()
                     return redirect(reverse('view_cart'))
-
-            ###################################
-            # TODO: Actual Stripe charge here #
-            ###################################
 
             # Save the info to the user's profile if all is well
             request.session['save_info'] = 'save-info' in request.POST
@@ -193,7 +194,7 @@ def checkout_success(request, order_number):
                         f'Your order was successfully processed, but your information '
                         f'could not be saved to your profile. Please try adding it '
                         f'manually on your profile page. Your order number is {order_number}. '
-                        f'A confirmation email has been sent to {order.email}.')
+                        f'A confirmation email will be sent to {order.email}.')
                     )
             # Now attempt to attach the order to the user's profile
             try:
@@ -206,7 +207,7 @@ def checkout_success(request, order_number):
                     f'order in your order history in your profile due to an error attaching '
                     f'the order to your profile. Please contact us for any assistance '
                     f'needed with this order. Your order number is {order_number}. '
-                    f'A confirmation email has been sent to {order.email}.')
+                    f'A confirmation email will be sent to {order.email}.')
                 )
         except UserProfile.DoesNotExist:
             no_errors = False
@@ -215,12 +216,12 @@ def checkout_success(request, order_number):
                 f'could not be saved to your profile because your profile was '
                 f'not found. Please contact us if you would like to save your '
                 f'information for future orders. Your order number is {order_number}. '
-                f'A confirmation email has been sent to {order.email}.')
+                f'A confirmation email will be sent to {order.email}.')
             )
 
     # If there were no issues, provide a standard success message
     if no_errors:
-        messages.success(request, f'Order successfully processed! Your order number is {order_number}. A confirmation email has been sent to {order.email}.')
+        messages.success(request, f'Order successfully processed! Your order number is {order_number}. A confirmation email will be sent to {order.email}.')
 
     # Send a confirmation email
     cust_email = order.email
