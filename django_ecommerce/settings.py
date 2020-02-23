@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'dummy')
 # DEBUG = False if not os.environ.get('DJANGO_DEBUG') else os.environ.get('DJANGO_DEBUG').lower() == 'true'
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1', 'boutique-ado.herokuapp.com']
 
 
 # Application definition
