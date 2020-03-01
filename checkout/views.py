@@ -11,30 +11,9 @@ from .models import Order, OrderLineItem
 from products.models import Product
 from profiles.models import UserProfile
 from profiles.forms import UserProfileForm
+from cart.contexts import cart_contents
 
 import stripe, json
-
-
-def get_cart_total(cart):
-    """
-    Get cart total for use in Stripe paymentIntent
-    """
-    total = 0
-    for item_id, item_data in cart.items():
-        price = Product.objects.get(pk=item_id).price
-        if isinstance(item_data, int):
-            total += item_data * price
-        else:
-            for size, quantity in item_data['items_by_size'].items():
-                total += quantity * price
-
-    if total <= settings.FREE_SHIPPING_THRESHOLD:
-        shipping = total * Decimal(settings.STANDARD_SHIPPING_PERCENTAGE/100)
-    else:
-        shipping = 0
-    grand_total = shipping + total
-
-    return grand_total
 
 
 def cache_checkout_data(request):
@@ -117,7 +96,7 @@ def checkout(request):
             messages.error(request, f"You don't have anything in your bag at the moment. Try adding some products before checking out.")
             return redirect('products')
         
-        total = get_cart_total(cart)
+        total = cart_contents(request)['grand_total']
         stripe_total = round(total * 100)
         stripe.api_key = settings.STRIPE_SECRET_KEY
 

@@ -15,7 +15,6 @@
 .stripe-style-input:focus,
 .stripe-style-input:active {
 	box-shadow: 0 1px 3px 0 #cfd7df;
-	border: 1px solid transparent;
 }
 
 .StripeElement--webkit-autofill {

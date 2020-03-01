@@ -266,52 +266,5 @@
                 location.reload();
             })
         });
-        // form.addEventListener('submit', function(event) {
-
-        //  // Prevent the default form submission
-        //  event.preventDefault();
-
-        //  // Disable the card element to lock in value for submission
-        //  card.update({'disabled': true});
-        //  $('#submit-button').attr('disabled', true);
-        //  $('#payment-form').fadeToggle(100)
-        //  $('#loading-overlay').fadeToggle(100)
-
-        //  stripe.createToken(card).then(function(result) {
-        //      if (result.error) {
-        //          // Inform the user if there was an error.
-        //          var errorDiv = document.getElementById('card-errors');
-        //          var html = `
-        //              <span class="icon" role="alert">
-        //                  <i class="fas fa-times"></i>
-        //              </span>
-        //              <span>${result.error.message}</span>
-        //          `
-        //          $(errorDiv).html(html);
-        //          $('#loading-overlay').fadeToggle(100)
-        //          $('#payment-form').fadeToggle(100)
-        //          card.update({'disabled': false});
-        //          $('#submit-button').attr('disabled', false);
-
-        //      } else {
-        //          // Send the token to your server.
-        //          stripeTokenHandler(result.token);
-        //      }
-        //  });
-        // });
-
-        // // Submit the form with the token ID.
-        // function stripeTokenHandler(token) {
-        //  // Insert the token ID into the form so it gets submitted to the server
-        //  var form = document.getElementById('payment-form');
-        //  var hiddenInput = document.createElement('input');
-        //  hiddenInput.setAttribute('type', 'hidden');
-        //  hiddenInput.setAttribute('name', 'stripeToken');
-        //  hiddenInput.setAttribute('value', token.id);
-        //  form.appendChild(hiddenInput);
-
-        //  // Submit the form
-        //  form.submit();
-        // }
     </script>
 {% endblock %}

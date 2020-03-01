@@ -83,7 +83,7 @@ class StripeWH_Handler:
                     county=shipping_details.address.state,
                     grand_total=grand_total,
                     original_cart=cart,
-                    stripe_pid=pid, 
+                    stripe_pid=pid,
                 )
                 done = True # Nothing else to do if order is already created
                 break
