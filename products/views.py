@@ -71,12 +71,11 @@ def add_product(request):
             form.save()
             messages.success(request, 'Successfully added product')
             return redirect(reverse('add_product'))
-
-        messages.error(request, 'Failed to add product. Make sure your form is valid')
-        return redirect(reverse('add_product'))
-
-    form = ProductForm()
-
+        else:
+            messages.error(request, f'Failed to add product. Make sure your form is valid.')
+    else:
+        form = ProductForm()
+        
     template = 'products/add_product.html'
     context = {
         'form': form

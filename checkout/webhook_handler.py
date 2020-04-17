@@ -2,13 +2,11 @@
 Handles Stripe webhooks
 """
 from django.http import HttpResponse
-from django.contrib.auth.models import User
 
 from .models import Order, OrderLineItem
 from products.models import Product
 from profiles.models import UserProfile
 
-import stripe
 import json
 import time
 
@@ -19,7 +17,6 @@ class StripeWH_Handler:
     def __init__(self, request):
         self.request = request
 
-
     def handle_event(self, event):
         """
         Handle a generic/unknown/unexpected webhook event
@@ -27,7 +24,6 @@ class StripeWH_Handler:
         return HttpResponse(
             content=f'Unhandled webhook received: {event["type"]}',
             status=200)
-
 
     def handle_payment_intent_succeeded(self, event):
         """
@@ -48,8 +44,6 @@ class StripeWH_Handler:
         for field, value in shipping_details.address.items():
             if value == "":
                 shipping_details.address[field] = None
-            else:
-                shipping_details.address[field] = value.strip()
 
         # Update profile information if save_info was checked
         profile = None

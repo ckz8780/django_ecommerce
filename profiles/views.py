@@ -8,7 +8,7 @@ from checkout.models import Order
 
 
 def profile(request):
-    """A view to return the index page"""
+    """ Display the user's profile. """
 
     profile = get_object_or_404(UserProfile, user=request.user)
 
@@ -16,19 +16,19 @@ def profile(request):
         form = UserProfileForm(request.POST, instance=profile)
         if form.is_valid():
             form.save()
-            messages.success(request, f'Profile successfully updated')
-            return redirect(reverse('profile'))
+            messages.success(request, 'Profile successfully updated')
+        else:
+            messages.error(request, 'Update failed. Please check your form.')
 
-        messages.error(request, 'Failed to update profile. Make sure your form is valid')
-        return redirect(reverse('profile'))
-
-    form = UserProfileForm(instance=profile)
+    else:
+        form = UserProfileForm(instance=profile)
     orders = profile.orders.all()
 
     template = 'profiles/profile.html'
     context = {
         'orders': orders,
-        'form': form
+        'form': form,
+        'on_profile_page': True,
     }
 
     return render(request, template, context)
